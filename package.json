@@ -1,0 +1,19 @@
+{
+  "name": "escuela-de-alexandria",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Plataforma web académica y blog de la Escuela de Alexandría",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "preview": "npm --prefix frontend run preview",
+    "lint": "npm --prefix frontend run lint"
+  },
+  "keywords": [
+    "escuela-de-alexandria",
+    "ciencias-biblicas",
+    "react",
+    "vite",
+    "tailwind"
+  ]
+}

@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+/*
+ * Paleta de la marca (tomada del logo y los afiches de la Escuela):
+ * blanco hueso, marrón arcaico, dorado y el rojo/granate del sello.
+ * Para cambiar el aspecto visual del sitio basta con editar estos valores.
+ */
+@theme {
+  --color-page: #faf6ee;
+  --color-parchment: #f3ebdb;
+  --color-surface: #fffdf8;
+  --color-sunken: #f6efe0;
+  --color-line: #e4d6bb;
+  --color-line-strong: #cdb98f;
+  --color-soft: #f1e6d0;
+
+  --color-ink: #2b100a;
+  --color-ink-soft: #5a3a2c;
+  --color-ink-muted: #7d6454;
+
+  --color-gold: #b5832a;
+  --color-gold-light: #d8a94b;
+  --color-accent: #8c2a12;
+  --color-accent-dark: #6b1d0c;
+  --color-bark: #3b1a10;
+
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-page);
+    color: var(--color-ink);
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, .font-serif-classic {
+    font-family: var(--font-serif);
+  }
+
+  .font-title-ancient {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.05em;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-page);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line-strong);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.18s ease-out;
+}
