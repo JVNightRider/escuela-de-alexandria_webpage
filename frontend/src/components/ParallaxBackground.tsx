@@ -15,8 +15,8 @@ interface ParallaxBackgroundProps {
  */
 export const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({
   image,
-  speed = 0.4,
-  blurClass = 'blur-[3px]',
+  speed = 0.2,
+  blurClass = '',
   className = '',
 }) => {
   const layerRef = useRef<HTMLDivElement>(null);
@@ -29,7 +29,7 @@ export const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({
     const update = () => {
       frameId = 0;
       if (layerRef.current) {
-        layerRef.current.style.transform = `translate3d(0, ${window.scrollY * speed}px, 0) scale(1.12)`;
+        layerRef.current.style.transform = `translate3d(0, ${window.scrollY * speed}px, 0) scale(1.08)`;
       }
     };
     const onScroll = () => {
@@ -48,8 +48,8 @@ export const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({
     <div
       ref={layerRef}
       aria-hidden="true"
-      className={`absolute inset-0 bg-cover bg-center will-change-transform ${blurClass} ${className}`}
-      style={{ backgroundImage: `url('${image}')`, transform: 'scale(1.12)' }}
+      className={`absolute inset-0 bg-cover bg-center will-change-transform transition-transform duration-100 ease-out ${blurClass} ${className}`}
+      style={{ backgroundImage: `url('${image}')`, transform: 'scale(1.08)' }}
     />
   );
 };

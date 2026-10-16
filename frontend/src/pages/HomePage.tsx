@@ -20,31 +20,30 @@ export const HomePage: React.FC = () => {
 
       {/* HERO SECTION */}
       <section className="relative min-h-[88vh] flex items-center justify-center overflow-hidden border-b border-line">
-        {/* Lienzo de Alexandría con efecto parallax */}
-        <ParallaxBackground image="/images/alexandria-lienzo.jpeg" speed={0.4} blurClass="blur-[1.5px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-page/65 via-page/45 to-page" />
+        {/* Lienzo de Alexandría: imagen pura sin opacidad ni alfa, con parallax suave */}
+        <ParallaxBackground image="/images/alexandria-lienzo.jpeg" speed={0.2} blurClass="" />
 
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20 z-10">
           <img
             src="/images/logo-emblema.png"
             alt="Escuela de Alexandría"
-            className="w-28 h-28 sm:w-32 sm:h-32 mx-auto mb-6 drop-shadow-lg"
+            className="w-28 h-28 sm:w-32 sm:h-32 mx-auto mb-6 drop-shadow-xl"
           />
 
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-surface/80 border border-gold/50 text-accent text-xs font-semibold tracking-wider uppercase mb-8 backdrop-blur-sm">
+          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-surface/90 border border-gold/50 text-accent text-xs font-semibold tracking-wider uppercase mb-8 backdrop-blur-sm shadow-md">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Blog Académico & Divulgación Bíblica</span>
           </div>
 
           <div className="max-w-3xl mx-auto mb-6">
             <div className="h-0.5 bg-gold" />
-            <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-medium tracking-wide uppercase text-ink py-5 leading-tight">
+            <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-wide uppercase text-ink py-5 leading-tight drop-shadow-sm">
               Escuela de Alexandría
             </h1>
             <div className="h-0.5 bg-gold" />
           </div>
 
-          <p className="max-w-2xl mx-auto text-lg sm:text-xl text-ink-soft font-medium leading-relaxed mb-10">
+          <p className="max-w-2xl mx-auto text-lg sm:text-xl text-ink font-semibold leading-relaxed mb-10 drop-shadow-sm">
             Un equipo de investigadores de las bases históricas, lingüísticas, culturales y textuales que dieron forma a las Escrituras.
           </p>
 
