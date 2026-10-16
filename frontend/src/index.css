@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
 /*
- * Paleta de la marca (tomada del logo y los afiches de la Escuela):
- * blanco hueso, marrón arcaico, dorado y el rojo/granate del sello.
- * Para cambiar el aspecto visual del sitio basta con editar estos valores.
+ * Paleta de la marca (inspirada en papiro antiguo, mármol desgastado y el lienzo de Alexandría):
+ * tonos marfil/hueso envejecido, marrón arcaico, dorado y el rojo/granate del sello.
+ * Ninguna superficie usa blanco plano (#fff); todas combinan pigmento cálido + textura rugosa.
  */
 @theme {
-  --color-page: #faf6ee;
-  --color-parchment: #f3ebdb;
-  --color-surface: #fffdf8;
-  --color-sunken: #f6efe0;
-  --color-line: #e4d6bb;
-  --color-line-strong: #cdb98f;
-  --color-soft: #f1e6d0;
+  --color-page: #ede3cf;
+  --color-parchment: #e3d5bc;
+  --color-surface: #f4ecdc;
+  --color-sunken: #dfd0b5;
+  --color-line: #cbb693;
+  --color-line-strong: #b3986d;
+  --color-soft: #e7d9bf;
 
   --color-ink: #2b100a;
-  --color-ink-soft: #5a3a2c;
-  --color-ink-muted: #7d6454;
+  --color-ink-soft: #543527;
+  --color-ink-muted: #765c4b;
 
   --color-gold: #b5832a;
   --color-gold-light: #d8a94b;
@@ -28,10 +28,27 @@
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
+/*
+ * Texturas SVG embebidas para simular:
+ * 1) Vetas y manchas de desgaste tipo pared de mármol travertino / papiro antiguo (--papyrus-weathered)
+ * 2) Grano fino rugoso y fibras orgánicas del papiro (--papyrus-grain)
+ */
+:root {
+  --papyrus-weathered: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.014 0.022' numOctaves='4' seed='11'/%3E%3CfeColorMatrix values='0 0 0 0 0.52 0 0 0 0 0.38 0 0 0 0 0.22 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+  --papyrus-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.24 0 0 0 0 0.14 0 0 0 0.085 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
 @layer base {
   body {
     font-family: var(--font-sans);
     background-color: var(--color-page);
+    background-image:
+      var(--papyrus-grain),
+      var(--papyrus-weathered),
+      radial-gradient(ellipse at 15% 20%, rgba(168, 128, 76, 0.14) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 75%, rgba(139, 98, 52, 0.16) 0%, transparent 60%),
+      linear-gradient(180deg, rgba(255, 250, 238, 0.35) 0%, rgba(212, 190, 152, 0.22) 100%);
+    background-attachment: fixed;
     color: var(--color-ink);
     min-height: 100vh;
   }
@@ -44,6 +61,50 @@
     font-family: 'Cinzel', serif;
     letter-spacing: 0.05em;
   }
+}
+
+/*
+ * Aplicamos el acabado rugoso de mármol/papiro desgastado sobre las clases de superficie
+ * para que ningún contenedor o tarjeta se vea como un blanco digital plano.
+ */
+.bg-page {
+  background-color: var(--color-page);
+  background-image:
+    var(--papyrus-grain),
+    var(--papyrus-weathered),
+    radial-gradient(circle at 20% 15%, rgba(255, 248, 231, 0.45) 0%, transparent 50%),
+    radial-gradient(circle at 80% 85%, rgba(165, 126, 74, 0.15) 0%, transparent 55%);
+}
+
+.bg-parchment {
+  background-color: var(--color-parchment);
+  background-image:
+    var(--papyrus-grain),
+    var(--papyrus-weathered),
+    radial-gradient(ellipse at 75% 25%, rgba(145, 105, 55, 0.16) 0%, transparent 60%),
+    linear-gradient(135deg, rgba(255, 248, 232, 0.25) 0%, rgba(185, 150, 98, 0.18) 100%);
+}
+
+.bg-surface {
+  background-color: var(--color-surface);
+  background-image:
+    var(--papyrus-grain),
+    var(--papyrus-weathered),
+    linear-gradient(145deg, rgba(255, 252, 244, 0.55) 0%, rgba(220, 198, 162, 0.28) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 252, 245, 0.6), inset 0 0 24px rgba(166, 128, 76, 0.08);
+}
+
+.bg-sunken {
+  background-color: var(--color-sunken);
+  background-image:
+    var(--papyrus-grain),
+    var(--papyrus-weathered),
+    linear-gradient(180deg, rgba(160, 122, 72, 0.14) 0%, rgba(255, 248, 232, 0.2) 100%);
+}
+
+.bg-soft {
+  background-color: var(--color-soft);
+  background-image: var(--papyrus-grain);
 }
 
 /* Custom scrollbar */

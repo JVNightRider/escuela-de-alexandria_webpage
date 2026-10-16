@@ -20,9 +20,9 @@ export const HomePage: React.FC = () => {
 
       {/* HERO SECTION */}
       <section className="relative min-h-[88vh] flex items-center justify-center overflow-hidden border-b border-line">
-        {/* Desierto de Qumrán, ligeramente difuminado y con parallax */}
-        <ParallaxBackground image="/images/desierto-qumran.jpg" speed={0.4} blurClass="blur-[3px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-page/70 via-page/55 to-page" />
+        {/* Lienzo de Alexandría con efecto parallax */}
+        <ParallaxBackground image="/images/alexandria-lienzo.jpeg" speed={0.4} blurClass="blur-[1.5px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-page/65 via-page/45 to-page" />
 
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20 z-10">
           <img
