@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import {
-  BookOpen,
-  PlayCircle,
-  ArrowLeft,
-  Video,
-} from 'lucide-react';
+import { BookOpen, PlayCircle, ArrowLeft, ExternalLink, Lock } from 'lucide-react';
 import { Course, Lesson } from '../types';
 import { api } from '../services/api';
 
@@ -50,10 +45,13 @@ export const CourseDetailPage: React.FC = () => {
     );
   }
 
+  /** La grabación requiere compra cuando no hay video embebido y sí pasarela de pago. */
+  const isPaidOnly = Boolean(selectedLesson && !selectedLesson.youtubeId && selectedLesson.payuLink);
+
   return (
     <div className="min-h-screen bg-page text-ink-soft py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Botón Volver */}
         <Link
           to="/cursos"
@@ -74,16 +72,26 @@ export const CourseDetailPage: React.FC = () => {
           <p className="text-ink-soft text-sm leading-relaxed font-light max-w-3xl">
             {course.summary}
           </p>
+          {course.description && (
+            <p className="text-ink-soft text-sm leading-relaxed font-light max-w-3xl border-t border-line pt-3">
+              {course.description}
+            </p>
+          )}
+          {course.lecturer && (
+            <p className="text-xs font-semibold text-accent">
+              Expositor: {course.lecturer.name} &middot; {course.lecturer.role}
+            </p>
+          )}
         </div>
 
         {/* Visor de Contenido y Lista de Lecciones */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           {/* Columna Izquierda: Reproductor y Material de la Lección (2/3) */}
           <div className="lg:col-span-2 space-y-6">
             {selectedLesson ? (
               <div className="rounded-2xl overflow-hidden bg-surface border border-line shadow-xl">
-                
+
                 {/* Cabecera de la Lección */}
                 <div className="p-6 border-b border-line flex items-center justify-between">
                   <div>
@@ -93,20 +101,45 @@ export const CourseDetailPage: React.FC = () => {
                     <h2 className="font-serif text-2xl font-bold text-ink mt-1">
                       {selectedLesson.title}
                     </h2>
+                    {selectedLesson.speaker && (
+                      <p className="text-xs font-semibold text-accent mt-1">{selectedLesson.speaker}</p>
+                    )}
                   </div>
                 </div>
 
                 <div className="p-6 space-y-6">
                   {/* Video Embebido */}
-                  {selectedLesson.videoUrl && (
+                  {selectedLesson.youtubeId && (
                     <div className="aspect-video w-full rounded-xl overflow-hidden bg-black border border-line shadow-inner">
                       <iframe
-                        src={selectedLesson.videoUrl}
+                        src={`https://www.youtube.com/embed/${selectedLesson.youtubeId}`}
                         title={selectedLesson.title}
                         className="w-full h-full"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                       />
+                    </div>
+                  )}
+
+                  {/* Grabación de acceso restringido */}
+                  {isPaidOnly && (
+                    <div className="p-5 rounded-xl bg-soft border border-gold/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                      <div className="flex items-start space-x-3">
+                        <Lock className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" />
+                        <p className="text-xs text-ink-soft leading-relaxed">
+                          Esta grabación es de acceso restringido. Adquiérela por PayU y recíbela en tu correo
+                          junto con las indicaciones de acceso.
+                        </p>
+                      </div>
+                      <a
+                        href={selectedLesson.payuLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center space-x-1.5 px-4 py-2.5 rounded-lg bg-gold hover:bg-gold-light text-ink font-bold text-xs shadow-md transition-all whitespace-nowrap"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        <span>Adquirir por PayU</span>
+                      </a>
                     </div>
                   )}
 
@@ -143,6 +176,7 @@ export const CourseDetailPage: React.FC = () => {
                   return (
                     <button
                       key={lesson.id}
+                      type="button"
                       onClick={() => setSelectedLesson(lesson)}
                       className={`w-full text-left p-3.5 rounded-xl border transition-all flex items-start space-x-3 ${
                         isSelected
@@ -150,7 +184,11 @@ export const CourseDetailPage: React.FC = () => {
                           : 'bg-parchment border-line hover:border-line-strong text-ink-soft'
                       }`}
                     >
-                      <PlayCircle className={`w-4 h-4 mt-0.5 flex-shrink-0 ${isSelected ? 'text-accent' : 'text-ink-muted'}`} />
+                      {lesson.youtubeId ? (
+                        <PlayCircle className={`w-4 h-4 mt-0.5 flex-shrink-0 ${isSelected ? 'text-accent' : 'text-ink-muted'}`} />
+                      ) : (
+                        <Lock className={`w-4 h-4 mt-0.5 flex-shrink-0 ${isSelected ? 'text-accent' : 'text-ink-muted'}`} />
+                      )}
 
                       <div className="flex-1">
                         <span className="text-[11px] font-semibold text-gold">

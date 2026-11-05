@@ -91,7 +91,7 @@ export const HomePage: React.FC = () => {
             <div className="absolute -inset-2 bg-gradient-to-r from-gold/20 to-line/40 rounded-2xl blur-lg group-hover:opacity-100 transition duration-1000" />
             <div className="relative rounded-2xl overflow-hidden border border-line shadow-2xl bg-surface">
               <img
-                src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1200&q=80"
+                src="/images/home-biblioteca.jpg"
                 alt="Biblioteca y Manuscritos Antiguos"
                 className="w-full h-[520px] object-cover object-center filter saturate-90 hover:scale-105 transition-transform duration-700"
               />

@@ -1,5 +1,5 @@
 import { Course, Lesson } from '../types';
-import { coursesData, getCourseBySlug, getCourses } from '../data/coursesData';
+import { getCourseBySlug, getCourses } from '../data/coursesData';
 
 class CoursesService {
   public async getCatalog(): Promise<Course[]> {

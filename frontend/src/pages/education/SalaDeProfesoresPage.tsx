@@ -17,7 +17,8 @@ import { YoutubeIcon } from '../../components/SocialIcons';
 import {
   SalaProfesorVideo,
   PLAYLIST_ID,
-  PLAYLIST_URL
+  PLAYLIST_URL,
+  fallbackSalaProfesoresVideos
 } from '../../data/salaProfesoresVideos';
 import {
   getSalaProfesoresVideos,
@@ -55,6 +56,12 @@ export const SalaDeProfesoresPage: React.FC = () => {
       isMounted = false;
     };
   }, []);
+
+  /** Conteos derivados del dataset activo (API, caché o respaldo local). */
+  const allVideos = syncData.videos.length ? syncData.videos : fallbackSalaProfesoresVideos;
+  const totalVideos = allVideos.length;
+  const qnaCount = allVideos.filter((v) => v.isQandA).length;
+  const masterclassCount = totalVideos - qnaCount;
 
   // Filter & Sort
   const filteredVideos = useMemo(() => {
@@ -109,7 +116,7 @@ export const SalaDeProfesoresPage: React.FC = () => {
         <div
           className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{
-            backgroundImage: `url('https://23a7ea3ebd.cbaul-cdnwnd.com/2607e31ac19c95e85e6bf0b791c0de3a/200000073-ad8cead8d0/scrolls.jpg?ph=23a7ea3ebd')`
+            backgroundImage: `url('/images/hero-manuscritos.jpg')`
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-page via-page/75 to-transparent" />
@@ -140,7 +147,7 @@ export const SalaDeProfesoresPage: React.FC = () => {
               className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-accent/10 border border-accent/30 text-accent hover:bg-accent hover:text-white transition-colors"
             >
               <YoutubeIcon className="w-3.5 h-3.5" />
-              <span>Abrir en YouTube ({syncData.totalCount || 29} videos)</span>
+              <span>Abrir en YouTube ({totalVideos} videos)</span>
               <ExternalLink className="w-3 h-3 ml-0.5" />
             </a>
           </div>
@@ -262,7 +269,7 @@ export const SalaDeProfesoresPage: React.FC = () => {
                     : 'bg-surface border border-line text-ink-soft hover:bg-soft'
                 }`}
               >
-                Todos ({syncData.videos.length || 29})
+                Todos ({totalVideos})
               </button>
 
               <button
@@ -275,7 +282,7 @@ export const SalaDeProfesoresPage: React.FC = () => {
                 }`}
               >
                 <HelpCircle className="w-3.5 h-3.5" />
-                <span>Tiempo de Preguntas ({syncData.videos.filter((v) => v.isQandA).length || 13})</span>
+                <span>Tiempo de Preguntas ({qnaCount})</span>
               </button>
 
               <button
@@ -288,7 +295,7 @@ export const SalaDeProfesoresPage: React.FC = () => {
                 }`}
               >
                 <Video className="w-3.5 h-3.5" />
-                <span>Exposiciones ({syncData.videos.filter((v) => !v.isQandA).length || 16})</span>
+                <span>Exposiciones ({masterclassCount})</span>
               </button>
 
               {/* Orden */}
@@ -306,7 +313,7 @@ export const SalaDeProfesoresPage: React.FC = () => {
 
           <div className="flex items-center justify-between text-xs text-ink-muted px-1">
             <span>
-              Mostrando <strong className="text-ink font-semibold">{filteredVideos.length}</strong> de {syncData.videos.length || 29} sesiones
+              Mostrando <strong className="text-ink font-semibold">{filteredVideos.length}</strong> de {totalVideos} sesiones
             </span>
             <span className="hidden sm:inline">
               Haz clic en cualquier video para reproducirlo inmediatamente

@@ -21,6 +21,26 @@ Sitio web y blog de investigación de la **Escuela de Alexandría**, recreado co
 
 ---
 
+## 🧭 Arquitectura de Contenido
+
+Todo el contenido editorial vive en `frontend/src/data/` y se tipa en `frontend/src/types/index.ts`. Las páginas son **solo presentación**: no declaran textos, títulos ni IDs de video propios.
+
+| Archivo | Contenido |
+| --- | --- |
+| `data/coursesData.ts` | Los 4 programas académicos, sus lecciones, banners y la ficha del expositor. Es la fuente única de `/cursos`, `/canones-biblicos`, `/panorama-biblico`, `/catedra-exclusiva` y `/cronicas`. |
+| `data/teachersData.ts` | Cuerpo docente (`FacultyMember`) de `/profesores`. |
+| `data/seminariosData.ts` | Brochure 2026-2027 y registro de seminarios dictados de `/seminarios`. |
+| `data/salaProfesoresVideos.ts` | Dataset de respaldo de las 29 sesiones de `/sala-de-profesores`. |
+
+Reglas al agregar contenido:
+
+1. Una lección nueva se añade **una sola vez** en `coursesData.ts`; las secciones temáticas la muestran automáticamente.
+2. `Lesson.title` se escribe sin numeración ni nombre del expositor: las páginas añaden las etiquetas «Lección N», «Parte N» o «Módulo N» y el campo `speaker` por separado.
+3. Si una grabación es de pago, se omite `youtubeId` y se declara `payuLink`; la interfaz muestra la pasarela en lugar del reproductor.
+4. Las imágenes se guardan en `frontend/public/images/` y se referencian por ruta local (`/images/...`). El sitio no depende de CDN externos.
+
+---
+
 ## 🛠️ Comandos de Desarrollo y Compilación
 
 Desde la raíz del proyecto:
