@@ -1,0 +1,86 @@
+/*
+ * Sección: comunidad (/comunidad).
+ */
+
+.community__head {
+  @apply mx-auto mb-16 max-w-3xl text-center;
+}
+
+.community__tag {
+  @apply mb-4 inline-flex items-center space-x-2 rounded-full border border-gold/40 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-accent;
+  background-color: rgb(181 131 42 / 0.15);
+}
+
+.community__tag-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.community__title {
+  @apply mb-4 mt-1 font-serif text-4xl font-bold text-ink sm:text-5xl;
+}
+
+.community__text {
+  @apply text-base font-light leading-relaxed text-ink-soft;
+}
+
+.community__grid {
+  @apply mb-16 grid grid-cols-1 gap-6 md:grid-cols-3;
+}
+
+.community-card {
+  @apply flex flex-col justify-between rounded-2xl border border-line p-8 shadow-xl transition-all hover:-translate-y-1 hover:border-gold;
+  background-color: var(--color-surface);
+}
+
+.community-card__icon-box {
+  @apply mb-6 flex h-12 w-12 items-center justify-center rounded-xl border border-line text-accent transition-transform;
+  background-color: var(--color-sunken);
+}
+
+.community-card:hover .community-card__icon-box {
+  transform: scale(1.1);
+}
+
+.community-card__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.community-card__title {
+  @apply mb-2 font-serif text-xl font-bold text-ink;
+}
+
+.community-card__text {
+  @apply text-xs font-light leading-relaxed text-ink-soft;
+}
+
+.community-card__action {
+  @apply mt-6 flex items-center space-x-1.5 text-xs font-semibold text-accent transition-colors;
+}
+
+.community-card:hover .community-card__action {
+  color: var(--color-accent-dark);
+}
+
+.community__rule {
+  @apply space-y-4 rounded-2xl border border-line p-8 text-center;
+  background-image: linear-gradient(
+    to right,
+    var(--color-surface),
+    var(--color-soft),
+    var(--color-surface)
+  );
+}
+
+.community__rule-title {
+  @apply font-serif text-2xl font-bold text-ink;
+}
+
+.community__rule-quote {
+  @apply mx-auto max-w-2xl font-serif text-sm italic leading-relaxed text-accent;
+}
+
+.community__rule-text {
+  @apply mx-auto max-w-xl text-xs font-light leading-relaxed text-ink-soft;
+}

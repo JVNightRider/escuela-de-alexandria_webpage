@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {
-  ChevronDown,
-  Menu,
-  X,
-  ExternalLink,
-  Sparkles,
-} from 'lucide-react';
+import { ChevronDown, Menu, X, Sparkles } from 'lucide-react';
 import { YoutubeIcon } from './SocialIcons';
 import { Logo } from './Logo';
+import { SITE } from '../data/site';
 
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -25,240 +20,157 @@ export const Navbar: React.FC = () => {
     location.pathname.startsWith('/sala-de-profesores') ||
     location.pathname.startsWith('/cursos');
 
-  return (
-    <header className="sticky top-0 z-50 bg-surface/95 backdrop-blur-md border-b border-line text-ink-soft transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+  const closeDropdown = () => setEduDropdownOpen(false);
+  const closeMobileMenu = () => setMobileMenuOpen(false);
 
+  return (
+    <header className="site-header">
+      <div className="container">
+        <div className="site-header__bar">
           {/* Logo oficial */}
-          <Link to="/" aria-label="Escuela de Alexandría - Inicio">
+          <Link to="/" aria-label="Escuela de Alexandría - Inicio" className="brand">
             <Logo />
           </Link>
 
-
-          {/* Menú Desktop */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-3 text-sm font-medium">
-            <Link
-              to="/"
-              className={`px-3 py-2 rounded-md transition-colors ${isActive('/') ? 'text-accent bg-soft' : 'text-ink-soft hover:text-accent hover:bg-soft'
-                }`}
-            >
+          {/* Menú de escritorio */}
+          <nav className="nav">
+            <Link to="/" className={`nav__link${isActive('/') ? ' is-active' : ''}`}>
               Inicio
             </Link>
 
-            <Link
-              to="/profesores"
-              className={`px-3 py-2 rounded-md transition-colors ${isActive('/profesores') ? 'text-accent bg-soft' : 'text-ink-soft hover:text-accent hover:bg-soft'
-                }`}
-            >
+            <Link to="/profesores" className={`nav__link${isActive('/profesores') ? ' is-active' : ''}`}>
               Profesores
             </Link>
 
-            {/* Dropdown Educación con submenús exactos */}
-            <div className="relative" onMouseLeave={() => setEduDropdownOpen(false)}>
+            <div className="nav__dropdown" onMouseLeave={closeDropdown}>
               <button
+                type="button"
                 onClick={() => setEduDropdownOpen(!eduDropdownOpen)}
                 onMouseEnter={() => setEduDropdownOpen(true)}
-                className={`flex items-center space-x-1 px-3 py-2 rounded-md transition-colors ${isEduActive ? 'text-accent bg-soft' : 'text-ink-soft hover:text-accent hover:bg-soft'
-                  }`}
+                className={`nav__trigger${isEduActive ? ' is-active' : ''}`}
               >
                 <span>Educación</span>
-                <ChevronDown className="w-4 h-4 ml-0.5 opacity-80" />
+                <ChevronDown className="nav__caret" />
               </button>
 
               {eduDropdownOpen && (
-                <div
-                  className="absolute left-0 mt-1 w-72 rounded-xl bg-surface border border-line shadow-2xl py-2 z-50 animate-fadeIn"
-                  onMouseEnter={() => setEduDropdownOpen(true)}
-                >
-                  <Link
-                    to="/seminarios"
-                    onClick={() => setEduDropdownOpen(false)}
-                    className="block px-4 py-2.5 text-xs text-ink-soft hover:bg-soft hover:text-accent transition-colors"
-                  >
-                    <div className="font-semibold text-sm">Seminarios & Brochure</div>
-                    <div className="text-[11px] text-ink-muted">Todos los programas y artículos de formación</div>
+                <div className="nav__panel" onMouseEnter={() => setEduDropdownOpen(true)}>
+                  <Link to="/seminarios" onClick={closeDropdown} className="nav__item nav__item--feature">
+                    <div className="nav__item-title">Seminarios &amp; Brochure</div>
+                    <div className="nav__item-desc">Todos los programas y artículos de formación</div>
                   </Link>
 
-                  <div className="border-t border-line my-1"></div>
+                  <div className="nav__divider" />
 
-                  <Link
-                    to="/catedra-exclusiva"
-                    onClick={() => setEduDropdownOpen(false)}
-                    className="block px-4 py-2 text-xs text-ink-soft hover:bg-soft hover:text-accent transition-colors"
-                  >
-                    <div className="font-semibold text-xs">Cátedra Exclusiva</div>
-                    <div className="text-[11px] text-ink-muted">Masterclass con el Dr. Antonio Piñero</div>
+                  <Link to="/catedra-exclusiva" onClick={closeDropdown} className="nav__item">
+                    <div className="nav__item-title nav__item-title--compact">Cátedra Exclusiva</div>
+                    <div className="nav__item-desc">Masterclass con el Dr. Antonio Piñero</div>
                   </Link>
 
-                  {/* Submenú Crónicas */}
-                  <Link
-                    to="/cronicas"
-                    onClick={() => setEduDropdownOpen(false)}
-                    className="block pl-7 pr-4 py-1.5 text-xs text-accent hover:bg-soft transition-colors"
-                  >
-                    <div className="font-bold text-xs flex items-center space-x-1">
+                  <Link to="/cronicas" onClick={closeDropdown} className="nav__item--accent">
+                    <div className="nav__cronica-title">
                       <span>&bull; Crónicas (Archivo de Cátedras)</span>
-                      <Sparkles className="w-3 h-3 text-gold" />
+                      <Sparkles className="nav__spark" />
                     </div>
-                    <div className="text-[10px] text-ink-muted">Dr. Roitman, Dr. Krüger, Dr. Piñero</div>
+                    <div className="nav__item-desc">Dr. Roitman, Dr. Krüger, Dr. Piñero</div>
                   </Link>
 
-                  <div className="border-t border-line my-1"></div>
+                  <div className="nav__divider" />
 
-                  <Link
-                    to="/panorama-biblico"
-                    onClick={() => setEduDropdownOpen(false)}
-                    className="block px-4 py-2 text-xs text-ink-soft hover:bg-soft hover:text-accent"
-                  >
-                    <div className="font-semibold text-xs">Panorama Bíblico</div>
-                    <div className="text-[11px] text-ink-muted">Serie histórica y arqueológica completa</div>
+                  <Link to="/panorama-biblico" onClick={closeDropdown} className="nav__item">
+                    <div className="nav__item-title nav__item-title--compact">Panorama Bíblico</div>
+                    <div className="nav__item-desc">Serie histórica y arqueológica completa</div>
                   </Link>
 
-                  <Link
-                    to="/canones-biblicos"
-                    onClick={() => setEduDropdownOpen(false)}
-                    className="block px-4 py-2 text-xs text-ink-soft hover:bg-soft hover:text-accent"
-                  >
-                    <div className="font-semibold text-xs">Cánones Bíblicos</div>
-                    <div className="text-[11px] text-ink-muted">Formación y códices bíblicos antiguos</div>
+                  <Link to="/canones-biblicos" onClick={closeDropdown} className="nav__item">
+                    <div className="nav__item-title nav__item-title--compact">Cánones Bíblicos</div>
+                    <div className="nav__item-desc">Formación y códices bíblicos antiguos</div>
                   </Link>
 
-                  <div className="border-t border-line my-1"></div>
+                  <div className="nav__divider" />
 
-                  <Link
-                    to="/sala-de-profesores"
-                    onClick={() => setEduDropdownOpen(false)}
-                    className="block px-4 py-2 text-xs text-ink-soft hover:bg-soft hover:text-accent"
-                  >
-                    <div className="font-semibold text-xs flex items-center justify-between">
-                      <span>Sala de Profesores</span>
-                      <span className="text-[10px] bg-accent/15 text-accent px-1.5 py-0.5 rounded font-bold">Q&A</span>
+                  <Link to="/sala-de-profesores" onClick={closeDropdown} className="nav__item">
+                    <div className="nav__item-row">
+                      <span className="nav__item-title nav__item-title--compact">Sala de Profesores</span>
+                      <span className="nav__badge">Q&amp;A</span>
                     </div>
-                    <div className="text-[11px] text-ink-muted">Recopilación de vídeos de preguntas y respuestas</div>
+                    <div className="nav__item-desc">Recopilación de vídeos de preguntas y respuestas</div>
                   </Link>
                 </div>
               )}
             </div>
 
-            <Link
-              to="/cursos"
-              className={`px-3 py-2 rounded-md transition-colors ${isActive('/cursos') ? 'text-accent bg-soft' : 'text-ink-soft hover:text-accent hover:bg-soft'
-                }`}
-            >
+            <Link to="/cursos" className={`nav__link${isActive('/cursos') ? ' is-active' : ''}`}>
               Cursos
             </Link>
 
-            <Link
-              to="/comunidad"
-              className={`px-3 py-2 rounded-md transition-colors ${isActive('/comunidad') ? 'text-accent bg-soft' : 'text-ink-soft hover:text-accent hover:bg-soft'
-                }`}
-            >
+            <Link to="/comunidad" className={`nav__link${isActive('/comunidad') ? ' is-active' : ''}`}>
               Comunidad
             </Link>
           </nav>
 
-          {/* Botón Móvil */}
-          <div className="flex md:hidden items-center">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-ink-soft hover:text-accent hover:bg-soft transition-colors"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {/* Botón móvil */}
+          <div className="nav-toggle-wrap">
+            <button type="button" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="nav-toggle">
+              {mobileMenuOpen ? <X className="nav-toggle__icon" /> : <Menu className="nav-toggle__icon" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Menú Móvil Desplegable */}
+      {/* Menú móvil desplegable */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-line bg-surface px-4 pt-3 pb-6 space-y-2">
-          <Link
-            to="/"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-md text-base font-medium text-ink-soft hover:bg-soft"
-          >
+        <div className="mobile-menu">
+          <Link to="/" onClick={closeMobileMenu} className="mobile-menu__link">
             Inicio
           </Link>
-          <Link
-            to="/profesores"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-md text-base font-medium text-ink-soft hover:bg-soft"
-          >
+          <Link to="/profesores" onClick={closeMobileMenu} className="mobile-menu__link">
             Profesores
           </Link>
 
-          <div className="px-3 pt-2 text-xs font-bold text-gold uppercase tracking-wider">
-            Sección Educación
-          </div>
-          <Link
-            to="/seminarios"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-4 py-2 rounded-md text-sm text-ink-soft hover:bg-soft"
-          >
-            Seminarios & Brochure
+          <div className="mobile-menu__label">Sección Educación</div>
+
+          <Link to="/seminarios" onClick={closeMobileMenu} className="mobile-menu__link mobile-menu__link--sub">
+            Seminarios &amp; Brochure
           </Link>
-          <Link
-            to="/catedra-exclusiva"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-4 py-2 rounded-md text-sm text-ink-soft hover:bg-soft"
-          >
+          <Link to="/catedra-exclusiva" onClick={closeMobileMenu} className="mobile-menu__link mobile-menu__link--sub">
             Cátedra Exclusiva
           </Link>
-          <Link
-            to="/cronicas"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-6 py-2 rounded-md text-sm font-bold text-accent hover:bg-soft"
-          >
+          <Link to="/cronicas" onClick={closeMobileMenu} className="mobile-menu__link--accent">
             &bull; Crónicas (Dr. Roitman, Dr. Krüger, Dr. Piñero)
           </Link>
-          <Link
-            to="/panorama-biblico"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-4 py-2 rounded-md text-sm text-ink-soft hover:bg-soft"
-          >
+          <Link to="/panorama-biblico" onClick={closeMobileMenu} className="mobile-menu__link mobile-menu__link--sub">
             Panorama Bíblico
           </Link>
-          <Link
-            to="/canones-biblicos"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-4 py-2 rounded-md text-sm text-ink-soft hover:bg-soft"
-          >
+          <Link to="/canones-biblicos" onClick={closeMobileMenu} className="mobile-menu__link mobile-menu__link--sub">
             Cánones Bíblicos
           </Link>
           <Link
             to="/sala-de-profesores"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-4 py-2 rounded-md text-sm text-ink-soft hover:bg-soft flex items-center justify-between"
+            onClick={closeMobileMenu}
+            className="mobile-menu__link mobile-menu__link--sub mobile-menu__link--split"
           >
-            <span>Sala de Profesores (Q&A)</span>
-            <span className="text-[10px] bg-accent/15 text-accent px-1.5 py-0.5 rounded font-bold">Nuevo</span>
+            <span>Sala de Profesores (Q&amp;A)</span>
+            <span className="mobile-menu__tag">Nuevo</span>
           </Link>
 
-          <div className="border-t border-line pt-2"></div>
-          <Link
-            to="/cursos"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-md text-base font-medium text-ink-soft hover:bg-soft"
-          >
-            Cursos & Seminarios
+          <div className="mobile-menu__divider" />
+
+          <Link to="/cursos" onClick={closeMobileMenu} className="mobile-menu__link">
+            Cursos &amp; Seminarios
           </Link>
-          <Link
-            to="/comunidad"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-md text-base font-medium text-ink-soft hover:bg-soft"
-          >
+          <Link to="/comunidad" onClick={closeMobileMenu} className="mobile-menu__link">
             Comunidad
           </Link>
 
-          <div className="pt-4">
+          <div className="mobile-menu__cta-wrap">
             <a
-              href="https://www.youtube.com/channel/UCZZwgfDZOWO4tlEAXUuVtQA/videos"
+              href={SITE.social.youtube}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center space-x-2 w-full py-2.5 rounded-xl bg-accent hover:bg-accent-dark text-white font-bold text-xs shadow-md"
+              className="mobile-menu__cta"
             >
-              <YoutubeIcon className="w-4 h-4" />
+              <YoutubeIcon className="icon icon--white" />
               <span>Visitar Canal de YouTube Oficial</span>
             </a>
           </div>

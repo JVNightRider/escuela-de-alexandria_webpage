@@ -1,0 +1,370 @@
+/*
+ * Componentes reutilizables: iconos, botones, badges, paneles, buscador,
+ * reproductor, temario, chips de filtro y lightbox.
+ */
+
+/* --- Iconos ---
+ * El tamaño base es 1rem; las variantes ajustan tamaño y color para que el
+ * marcado no repita utilidades de Tailwind. */
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.icon--xs {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+}
+
+.icon--tiny {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+}
+
+.icon--md {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.icon--lg {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+}
+
+.icon--xl {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+}
+
+.icon--2xl {
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+}
+
+.icon--gold {
+  color: var(--color-gold);
+}
+
+.icon--gold-light {
+  color: var(--color-gold-light);
+}
+
+.icon--accent {
+  color: var(--color-accent);
+}
+
+.icon--muted {
+  color: var(--color-ink-muted);
+}
+
+.icon--ink {
+  color: var(--color-ink);
+}
+
+.icon--page {
+  color: var(--color-page);
+}
+
+.icon--white {
+  color: #fff;
+}
+
+.icon--filled {
+  fill: currentColor;
+}
+
+/* --- Botones --- */
+
+.button {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold transition-all;
+}
+
+.button--gold {
+  @apply bg-gradient-to-r from-gold to-gold-light font-bold text-ink shadow-xl hover:-translate-y-0.5;
+}
+
+.button--accent {
+  @apply bg-gradient-to-r from-accent to-accent-dark font-bold text-white shadow-xl hover:-translate-y-0.5;
+}
+
+.button--accent:hover {
+  background-image: linear-gradient(to right, var(--color-accent-dark), var(--color-accent));
+}
+
+.button--outline {
+  @apply border border-line-strong text-ink-soft hover:border-gold hover:text-accent;
+  background-color: var(--color-soft);
+}
+
+.button--raised {
+  @apply border border-gold/60 text-ink shadow-md hover:bg-soft;
+  background-color: var(--color-surface);
+}
+
+.button--soft {
+  @apply text-ink-soft;
+  background-color: var(--color-soft);
+}
+
+.button--sm {
+  @apply rounded-lg px-4 py-2 text-xs;
+}
+
+.button--xs {
+  @apply rounded-lg px-3 py-1.5;
+  font-size: 11px;
+}
+
+.button--full {
+  @apply w-full;
+}
+
+.button--flat {
+  @apply shadow-none hover:translate-y-0;
+}
+
+/* --- Badges --- */
+
+.badge {
+  @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold;
+}
+
+.badge--outline {
+  @apply border border-gold/50 text-accent;
+  background-color: rgb(244 236 220 / 0.9);
+}
+
+.badge--gold {
+  @apply bg-gold/90 text-ink;
+}
+
+.badge--accent {
+  @apply bg-accent text-white;
+}
+
+.badge--sm {
+  font-size: 10px;
+}
+
+/* --- Antetítulos y cabeceras de sección --- */
+
+.kicker {
+  @apply block text-xs font-bold uppercase tracking-widest text-gold;
+}
+
+.kicker--ancient {
+  font-family: 'Cinzel', serif;
+}
+
+.page-head {
+  @apply mx-auto max-w-3xl text-center;
+}
+
+.page-head__title {
+  @apply mt-2 font-serif text-4xl font-bold text-ink sm:text-5xl;
+}
+
+.page-head__text {
+  @apply text-base font-light leading-relaxed text-ink-soft;
+}
+
+.section-head {
+  @apply border-b border-line pb-4;
+}
+
+.section-head__row {
+  @apply flex flex-col justify-between gap-4 sm:flex-row sm:items-end;
+}
+
+.section-head__title {
+  @apply mt-1 font-serif text-2xl font-bold leading-tight text-ink sm:text-3xl;
+}
+
+.section-head__subtitle {
+  @apply mt-1 text-xs text-ink-muted;
+}
+
+.section-head__actions {
+  @apply flex items-center gap-3;
+}
+
+/* --- Paneles y tarjetas --- */
+
+.panel {
+  @apply rounded-2xl border border-line p-6;
+  background-color: var(--color-surface);
+  background-image: var(--surface-raised-layers);
+}
+
+.panel__title {
+  @apply mb-4 flex items-center gap-2 font-serif text-xl font-bold text-ink;
+}
+
+.panel--flush {
+  @apply overflow-hidden p-0;
+}
+
+/* --- Buscador --- */
+
+.search {
+  @apply relative;
+}
+
+.search__icon {
+  @apply absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-muted;
+  width: 1rem;
+  height: 1rem;
+}
+
+.search__input {
+  @apply w-full rounded-xl border border-line py-2.5 pl-10 pr-4 text-ink shadow-inner transition-colors focus:border-gold focus:outline-none;
+  background-color: var(--color-surface);
+  font-size: 0.875rem;
+}
+
+.search__clear {
+  @apply absolute right-3 top-1/2 -translate-y-1/2 text-xs text-ink-muted hover:text-ink;
+}
+
+.search--lg .search__icon {
+  left: 0.875rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.search--lg .search__input {
+  @apply py-3 pl-11 text-sm;
+}
+
+/* --- Reproductor de video --- */
+
+.video-frame {
+  @apply aspect-video w-full overflow-hidden rounded-xl border border-line bg-black shadow-inner;
+}
+
+.video-frame iframe {
+  @apply h-full w-full border-0;
+}
+
+/* --- Temario de lecciones --- */
+
+.lesson-list {
+  @apply space-y-2.5;
+}
+
+.lesson-item {
+  @apply flex w-full items-start gap-3 rounded-xl border p-3.5 text-left transition-all;
+}
+
+.lesson-item:not(.is-selected) {
+  @apply border-line text-ink-soft hover:border-line-strong;
+  background-color: var(--color-parchment);
+}
+
+.lesson-item.is-selected {
+  @apply border-gold bg-soft shadow-md;
+}
+
+.lesson-item__icon {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+  color: var(--color-ink-muted);
+}
+
+.lesson-item.is-selected .lesson-item__icon {
+  color: var(--color-accent);
+}
+
+.lesson-item__label {
+  @apply font-semibold text-gold;
+  font-size: 11px;
+}
+
+.lesson-item__title {
+  @apply mt-0.5 text-xs font-medium leading-snug text-ink-soft;
+}
+
+.lesson-item.is-selected .lesson-item__title {
+  @apply text-ink;
+}
+
+/* --- Chips de filtro --- */
+
+.chip {
+  @apply rounded-xl px-3 py-1.5 text-xs font-semibold transition-all;
+}
+
+.chip:not(.is-active) {
+  @apply border border-line text-ink-soft hover:bg-soft;
+  background-color: var(--color-surface);
+}
+
+.chip.is-active {
+  @apply bg-accent text-white shadow-md;
+}
+
+/* --- Lightbox --- */
+
+.lightbox {
+  @apply fixed inset-0 z-50 flex items-center justify-center p-3 backdrop-blur-md sm:p-6;
+  background-color: rgb(0 0 0 / 0.85);
+  animation: fadeIn 0.18s ease-out;
+}
+
+.lightbox__dialog {
+  @apply relative flex max-h-[92vh] w-full max-w-6xl flex-col items-center overflow-hidden rounded-2xl border border-line p-2 shadow-2xl sm:p-4;
+  background-color: var(--color-surface);
+  background-image: var(--surface-raised-layers);
+}
+
+.lightbox__bar {
+  @apply flex w-full items-center justify-between border-b border-line px-2 pb-3 text-xs;
+}
+
+.lightbox__title {
+  @apply font-serif text-xs font-bold text-ink sm:text-sm;
+}
+
+.lightbox__actions {
+  @apply flex items-center space-x-2;
+}
+
+.lightbox__action {
+  @apply rounded-lg p-1.5 text-ink-soft transition-colors hover:bg-soft hover:text-ink;
+}
+
+.lightbox__body {
+  @apply flex w-full flex-1 items-center justify-center overflow-auto p-2;
+}
+
+.lightbox__image {
+  @apply max-h-[80vh] max-w-full rounded-lg object-contain;
+}
+
+/* --- Avisos y notas --- */
+
+.note {
+  @apply rounded-xl border border-line p-3.5 text-xs leading-relaxed text-ink-soft;
+  background-color: var(--color-sunken);
+}
+
+.exegesis {
+  @apply mt-2 whitespace-pre-line rounded-xl border border-line p-5 text-sm leading-relaxed text-ink-soft;
+  background-color: var(--color-surface);
+}
+
+/* --- Carga --- */
+
+.spinner {
+  @apply mx-auto h-8 w-8 animate-spin rounded-full border-2 border-gold border-t-transparent;
+}

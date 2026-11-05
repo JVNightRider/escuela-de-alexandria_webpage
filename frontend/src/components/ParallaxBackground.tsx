@@ -2,26 +2,24 @@ import React, { useEffect, useRef } from 'react';
 
 interface ParallaxBackgroundProps {
   image: string;
-  /** Fraction of the scroll distance the image travels (0 = static, 0.5 = slow). */
+  /** Fracción de la distancia de scroll que recorre la imagen (0 = estático). */
   speed?: number;
-  /** Tailwind blur utility, e.g. "blur-[3px]". */
-  blurClass?: string;
-  className?: string;
 }
 
 /**
- * Background image that moves slower than the page while scrolling.
- * Place it inside a `relative overflow-hidden` container.
+ * Fondo que se desplaza más despacio que la página.
+ * La imagen y el desplazamiento son valores de ejecución: se aplican por ref,
+ * nunca con un atributo `style` declarado en el JSX.
  */
-export const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({
-  image,
-  speed = 0.2,
-  blurClass = '',
-  className = '',
-}) => {
+export const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ image, speed = 0.2 }) => {
   const layerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const layer = layerRef.current;
+    if (!layer) return;
+
+    layer.style.backgroundImage = `url('${image}')`;
+
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) return;
 
@@ -42,14 +40,7 @@ export const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({
       window.removeEventListener('scroll', onScroll);
       if (frameId) cancelAnimationFrame(frameId);
     };
-  }, [speed]);
+  }, [image, speed]);
 
-  return (
-    <div
-      ref={layerRef}
-      aria-hidden="true"
-      className={`absolute inset-0 bg-cover bg-center will-change-transform transition-transform duration-100 ease-out ${blurClass} ${className}`}
-      style={{ backgroundImage: `url('${image}')`, transform: 'scale(1.08)' }}
-    />
-  );
+  return <div ref={layerRef} aria-hidden="true" className="parallax" />;
 };

@@ -5,61 +5,49 @@ import { PageMeta } from '../components/PageMeta';
 
 export const TeachersPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-page text-ink-soft py-16">
+    <div className="page page--pad">
       <PageMeta
         title="Profesores & Tutores"
         description="Cuerpo docente de la Escuela de Alexandría: especialistas en divinidad, hebreo y griego bíblico, judaísmo del Segundo Templo y crítica textual."
         path="/profesores"
       />
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Cabecera de Sección */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="text-xs uppercase tracking-widest text-gold font-bold">Cuerpo Docente</span>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-ink mt-2 mb-6">
-            Nuestros Profesores & Tutores
-          </h1>
-          <p className="text-ink-soft font-light text-base leading-relaxed">
+      <div className="container container--mid">
+        {/* Cabecera */}
+        <div className="teachers__head">
+          <span className="kicker">Cuerpo Docente</span>
+          <h1 className="teachers__title">Nuestros Profesores &amp; Tutores</h1>
+          <p className="teachers__text">
             Un equipo multidisciplinario dedicado al análisis riguroso de las fuentes lingüísticas, arqueológicas e históricas que configuran los manuscritos bíblicos.
           </p>
         </div>
 
-        {/* Lista de Profesores */}
-        <div className="space-y-16">
+        {/* Listado */}
+        <div className="teachers__list">
           {teachersData.map((teacher, index) => (
             <div
               key={teacher.id}
-              className={`p-8 sm:p-10 rounded-2xl bg-surface border border-line shadow-xl flex flex-col md:flex-row gap-8 items-center ${
-                index % 2 === 1 ? 'md:flex-row-reverse' : ''
-              }`}
+              className={index % 2 === 1 ? 'teacher teacher--reverse' : 'teacher'}
             >
-              {/* Foto del Profesor */}
-              <div className="w-48 sm:w-60 flex-shrink-0">
-                <div className="relative group">
-                  <div className="absolute -inset-1.5 bg-gradient-to-r from-gold/40 to-line/60 rounded-xl blur-sm" />
-                  <div className="relative rounded-xl overflow-hidden border border-gold/30 bg-surface">
-                    <img
-                      src={teacher.image}
-                      alt={teacher.name}
-                      className="w-full h-72 sm:h-80 object-cover object-top hover:scale-105 transition-transform duration-500"
-                    />
+              <div className="teacher__media">
+                <div className="teacher__portrait">
+                  <div className="teacher__glow" />
+                  <div className="teacher__frame">
+                    <img src={teacher.image} alt={teacher.name} className="teacher__photo" />
                   </div>
                 </div>
               </div>
 
-              {/* Información y Biografía */}
-              <div className="flex-1 space-y-4">
+              <div className="teacher__body">
                 <div>
-                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink">
-                    {teacher.name}
-                  </h2>
-                  <p className="text-sm font-semibold text-accent mt-1 flex items-center space-x-2">
-                    <GraduationCap className="w-4 h-4 text-gold" />
+                  <h2 className="teacher__name">{teacher.name}</h2>
+                  <p className="teacher__role">
+                    <GraduationCap className="teacher__role-icon" />
                     <span>{teacher.title}</span>
                   </p>
                 </div>
 
-                <div className="space-y-3 text-xs sm:text-sm text-ink-soft font-light leading-relaxed border-t border-line pt-4">
+                <div className="teacher__bio">
                   {teacher.bio.map((paragraph, i) => (
                     <p key={i}>{paragraph}</p>
                   ))}
@@ -68,7 +56,6 @@ export const TeachersPage: React.FC = () => {
             </div>
           ))}
         </div>
-
       </div>
     </div>
   );

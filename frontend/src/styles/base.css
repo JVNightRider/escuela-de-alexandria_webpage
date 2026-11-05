@@ -1,0 +1,133 @@
+/*
+ * Base: reset del documento, tipografía, superficies y comportamientos globales.
+ */
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-page);
+    background-image:
+      var(--papyrus-grain),
+      var(--papyrus-weathered),
+      radial-gradient(ellipse at 15% 20%, rgba(168, 128, 76, 0.14) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 75%, rgba(139, 98, 52, 0.16) 0%, transparent 60%),
+      linear-gradient(180deg, rgba(255, 250, 238, 0.35) 0%, rgba(212, 190, 152, 0.22) 100%);
+    background-attachment: fixed;
+    color: var(--color-ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+}
+
+/* --- Tipografía auxiliar --- */
+
+.font-title-ancient {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.05em;
+}
+
+/* --- Superficies: una clase por nivel de elevación --- */
+
+/* Contenedor raíz de cada página. */
+.page {
+  @apply min-h-screen text-ink-soft;
+  background-color: var(--color-page);
+  background-image: var(--surface-page-layers);
+}
+
+.page--pad {
+  @apply py-16;
+}
+
+.page--pad-sm {
+  @apply py-12;
+}
+
+.surface-page {
+  background-color: var(--color-page);
+  background-image: var(--surface-page-layers);
+}
+
+.surface-parchment {
+  background-color: var(--color-parchment);
+  background-image: var(--surface-parchment-layers);
+}
+
+.surface-raised {
+  background-color: var(--color-surface);
+  background-image: var(--surface-raised-layers);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 245, 0.6),
+    inset 0 0 24px rgba(166, 128, 76, 0.08);
+}
+
+.surface-sunken {
+  background-color: var(--color-sunken);
+  background-image: var(--surface-sunken-layers);
+}
+
+.surface-soft {
+  background-color: var(--color-soft);
+  background-image: var(--surface-soft-layers);
+}
+
+/* --- Fondo con parallax ---
+ * La imagen concreta la inyecta el componente por ref (valor de ejecución). */
+
+.parallax {
+  @apply absolute inset-0 bg-cover bg-center will-change-transform transition-transform duration-100 ease-out;
+  transform: scale(1.08);
+}
+
+/* --- Scrollbar --- */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-page);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-line-strong);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
+/* --- Animaciones --- */
+
+@keyframes fadeIn {  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.18s ease-out;
+}

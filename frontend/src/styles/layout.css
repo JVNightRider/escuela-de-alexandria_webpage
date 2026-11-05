@@ -1,0 +1,321 @@
+/*
+ * Layout global: contenedores, cabecera, navegación y pie de página.
+ */
+
+/* --- Contenedores --- */
+
+.container {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.container--mid {
+  @apply max-w-6xl;
+}
+
+.container--small {
+  @apply max-w-5xl;
+}
+
+.container--narrow {
+  @apply max-w-4xl;
+}
+
+.container--text {
+  @apply max-w-3xl;
+}
+
+/* --- Estructura de la aplicación --- */
+
+.app-shell {
+  @apply flex min-h-screen flex-col;
+}
+
+.app-main {
+  @apply grow;
+}
+
+/* --- Cabecera --- */
+
+.site-header {
+  @apply sticky top-0 z-50 border-b border-line text-ink-soft backdrop-blur-md;
+  background-color: rgb(244 236 220 / 0.95);
+}
+
+.site-header__bar {
+  @apply flex h-20 items-center justify-between;
+}
+
+.brand {
+  @apply inline-flex;
+}
+
+/* --- Navegación de escritorio --- */
+
+.nav {
+  @apply hidden items-center space-x-1 text-sm font-medium md:flex lg:space-x-3;
+}
+
+.nav__link {
+  @apply rounded-md px-3 py-2 text-ink-soft transition-colors hover:bg-soft hover:text-accent;
+}
+
+.nav__link.is-active {
+  @apply bg-soft text-accent;
+}
+
+.nav__dropdown {
+  @apply relative;
+}
+
+.nav__trigger {
+  @apply flex items-center space-x-1 rounded-md px-3 py-2 text-ink-soft transition-colors hover:bg-soft hover:text-accent;
+}
+
+.nav__trigger.is-active {
+  @apply bg-soft text-accent;
+}
+
+.nav__caret {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.125rem;
+  opacity: 0.8;
+}
+
+.nav__panel {
+  @apply absolute left-0 z-50 mt-1 w-72 rounded-xl border border-line py-2 shadow-2xl;
+  background-color: var(--color-surface);
+  background-image: var(--surface-raised-layers);
+  animation: fadeIn 0.18s ease-out;
+}
+
+.nav__item {
+  @apply block px-4 py-2 text-xs text-ink-soft transition-colors hover:bg-soft hover:text-accent;
+}
+
+.nav__item--feature {
+  @apply py-2.5;
+}
+
+.nav__item--accent {
+  @apply block py-1.5 pl-7 pr-4 text-xs text-accent transition-colors hover:bg-soft;
+}
+
+.nav__item-title {
+  @apply text-sm font-semibold;
+}
+
+.nav__item-title--compact {
+  @apply text-xs font-semibold;
+}
+
+.nav__item-desc {
+  @apply text-ink-muted;
+  font-size: 11px;
+}
+
+.nav__item-row {
+  @apply flex items-center justify-between;
+}
+
+.nav__divider {
+  @apply my-1 border-t border-line;
+}
+
+.nav__badge {
+  @apply rounded px-1.5 py-0.5 font-bold;
+  font-size: 10px;
+  background-color: rgb(140 42 18 / 0.15);
+  color: var(--color-accent);
+}
+
+.nav__spark {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: var(--color-gold);
+}
+
+.nav__cronica-title {
+  @apply flex items-center space-x-1 text-xs font-bold;
+}
+
+/* --- Menú móvil --- */
+
+.nav-toggle-wrap {
+  @apply flex items-center md:hidden;
+}
+
+.nav-toggle {
+  @apply rounded-lg p-2 text-ink-soft transition-colors hover:bg-soft hover:text-accent;
+}
+
+.nav-toggle__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.mobile-menu {
+  @apply space-y-2 border-t border-line px-4 pb-6 pt-3 md:hidden;
+  background-color: var(--color-surface);
+}
+
+.mobile-menu__link {
+  @apply block rounded-md px-3 py-2 text-base font-medium text-ink-soft hover:bg-soft;
+}
+
+.mobile-menu__link--sub {
+  @apply px-4 text-sm;
+}
+
+.mobile-menu__link--accent {
+  @apply block rounded-md px-6 py-2 text-sm font-bold text-accent hover:bg-soft;
+}
+
+.mobile-menu__link--split {
+  @apply flex items-center justify-between;
+}
+
+.mobile-menu__label {
+  @apply px-3 pt-2 text-xs font-bold uppercase tracking-wider text-gold;
+}
+
+.mobile-menu__divider {
+  @apply border-t border-line pt-2;
+}
+
+.mobile-menu__cta-wrap {
+  @apply pt-4;
+}
+
+.mobile-menu__cta {
+  @apply flex w-full items-center justify-center space-x-2 rounded-xl bg-accent py-2.5 text-xs font-bold text-white shadow-md hover:bg-accent-dark;
+}
+
+.mobile-menu__tag {
+  @apply rounded px-1.5 py-0.5 font-bold;
+  font-size: 10px;
+  background-color: rgb(140 42 18 / 0.15);
+  color: var(--color-accent);
+}
+
+/* --- Pie de página --- */
+
+.site-footer {
+  @apply border-t-4 border-gold pb-12 pt-16;
+  background-color: var(--color-bark);
+  color: rgb(237 227 207 / 0.8);
+}
+
+.footer__brand {
+  @apply mb-12 flex justify-center;
+}
+
+.footer__grid {
+  @apply mb-16 grid grid-cols-1 gap-12 md:grid-cols-3;
+}
+
+.footer__col {
+  @apply space-y-6;
+}
+
+.footer__heading {
+  @apply border-b border-gold/40 pb-3 font-serif text-2xl font-bold tracking-wide;
+  color: var(--color-page);
+}
+
+.footer__heading--icon {
+  @apply flex items-center space-x-2;
+}
+
+.footer__label {
+  @apply block text-xs font-semibold uppercase tracking-wider;
+  color: var(--color-gold-light);
+}
+
+.footer__link {
+  @apply mt-1 flex items-center space-x-2 transition-colors;
+  color: rgb(237 227 207 / 0.8);
+}
+
+.footer__link:hover {
+  color: var(--color-gold-light);
+}
+
+.footer__text {
+  @apply text-sm font-light leading-relaxed;
+}
+
+.footer__links {
+  @apply space-y-4 text-sm;
+}
+
+.footer__meta {
+  @apply text-xs;
+  color: rgb(237 227 207 / 0.7);
+}
+
+.footer__actions {
+  @apply flex flex-col gap-3 pt-2 sm:flex-row;
+}
+
+.footer__donate {
+  @apply inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-xs shadow-md transition-all;
+}
+
+.footer__donate--paypal {
+  @apply bg-accent font-semibold text-white hover:bg-accent-dark;
+}
+
+.footer__donate--payu {
+  @apply bg-gold font-bold hover:bg-gold-light;
+  color: var(--color-bark);
+}
+
+.footer__map {
+  @apply h-44 overflow-hidden rounded-xl border border-gold/40 shadow-lg;
+}
+
+.footer__map-frame {
+  @apply h-full w-full border-0 opacity-90 transition-opacity hover:opacity-100;
+  filter: sepia(0.4);
+}
+
+.footer__bottom {
+  @apply flex flex-col items-center justify-between gap-4 border-t border-gold/30 pt-8 text-xs md:flex-row;
+  color: rgb(237 227 207 / 0.7);
+}
+
+.footer__quote {
+  @apply text-center font-serif italic md:text-left;
+  color: rgb(237 227 207 / 0.9);
+}
+
+.footer__copy {
+  @apply text-center md:text-right;
+}
+
+/* --- Logotipo --- */
+
+.logo {
+  @apply flex items-center gap-3;
+}
+
+.logo__emblem {
+  @apply h-12 w-12 object-contain sm:h-14 sm:w-14;
+}
+
+.logo__wordmark {
+  @apply border-y-2 border-gold py-0.5;
+}
+
+.logo__text {
+  @apply block font-serif text-lg uppercase leading-[1.05] tracking-wide sm:text-xl;
+}
+
+.logo__text--light {
+  color: var(--color-ink);
+}
+
+.logo__text--dark {
+  color: var(--color-page);
+}

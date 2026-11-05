@@ -1,0 +1,14 @@
+/*
+ * Punto de entrada único de estilos.
+ * Orden: Tailwind (reset + utilidades internas de @apply) → tokens → base →
+ * layout → componentes → páginas.
+ */
+@import "tailwindcss";
+@import "./tokens.css";
+@import "./base.css";
+@import "./layout.css";
+@import "./components.css";
+@import "./pages/home.css";
+@import "./pages/catalog.css";
+@import "./pages/education.css";
+@import "./pages/community.css";

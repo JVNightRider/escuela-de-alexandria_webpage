@@ -19,9 +19,9 @@ import { SalaDeProfesoresPage } from './pages/education/SalaDeProfesoresPage';
 export const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <div className="flex flex-col min-h-screen bg-page text-ink-soft font-sans">
+      <div className="app-shell">
         <Navbar />
-        <main className="flex-grow">
+        <main className="app-main">
           <Routes>
             {/* Páginas principales del Blog */}
             <Route path="/" element={<HomePage />} />
