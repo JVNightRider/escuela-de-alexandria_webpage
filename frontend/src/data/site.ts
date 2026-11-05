@@ -21,6 +21,7 @@ export const SITE = {
   },
   social: {
     youtube: 'https://www.youtube.com/channel/UCZZwgfDZOWO4tlEAXUuVtQA/videos',
+    youtubeChannel: 'https://www.youtube.com/channel/UCZZwgfDZOWO4tlEAXUuVtQA',
     youtubeChannelId: 'UCZZwgfDZOWO4tlEAXUuVtQA',
     instagram: 'https://www.instagram.com/escueladealexandria/?hl=es-la',
     facebook: 'https://www.facebook.com/escueladealexandria'

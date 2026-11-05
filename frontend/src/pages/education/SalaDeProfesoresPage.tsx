@@ -14,6 +14,8 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { YoutubeIcon } from '../../components/SocialIcons';
+import { PageMeta } from '../../components/PageMeta';
+import { BackdropImage } from '../../components/BackdropImage';
 import {
   SalaProfesorVideo,
   PLAYLIST_ID,
@@ -24,7 +26,7 @@ import {
   getSalaProfesoresVideos,
   PlaylistSyncResult
 } from '../../services/youtubePlaylistService';
-import { PageMeta } from '../../components/PageMeta';
+import { SITE } from '../../data/site';
 
 export const SalaDeProfesoresPage: React.FC = () => {
   const [syncData, setSyncData] = useState<PlaylistSyncResult>({
@@ -36,10 +38,9 @@ export const SalaDeProfesoresPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'qna' | 'masterclass'>('all');
-  const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc'); // Most recent first by default
+  const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc');
   const [selectedVideo, setSelectedVideo] = useState<SalaProfesorVideo | null>(null);
 
-  // Load videos on mount
   useEffect(() => {
     let isMounted = true;
     getSalaProfesoresVideos()
@@ -64,11 +65,9 @@ export const SalaDeProfesoresPage: React.FC = () => {
   const qnaCount = allVideos.filter((v) => v.isQandA).length;
   const masterclassCount = totalVideos - qnaCount;
 
-  // Filter & Sort
   const filteredVideos = useMemo(() => {
     let result = [...syncData.videos];
 
-    // Filter by search
     if (searchTerm.trim()) {
       const q = searchTerm.toLowerCase();
       result = result.filter(
@@ -79,27 +78,19 @@ export const SalaDeProfesoresPage: React.FC = () => {
       );
     }
 
-    // Filter by type
     if (filterType === 'qna') {
       result = result.filter((v) => v.isQandA);
     } else if (filterType === 'masterclass') {
       result = result.filter((v) => !v.isQandA);
     }
 
-    // Sort order
-    result.sort((a, b) => {
-      if (sortOrder === 'desc') {
-        return b.index - a.index;
-      }
-      return a.index - b.index;
-    });
+    result.sort((a, b) => (sortOrder === 'desc' ? b.index - a.index : a.index - b.index));
 
     return result;
   }, [syncData.videos, searchTerm, filterType, sortOrder]);
 
   const handleSelectVideo = (video: SalaProfesorVideo) => {
     setSelectedVideo(video);
-    // Smooth scroll to player
     const playerEl = document.getElementById('sala-player-section');
     if (playerEl) {
       playerEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -111,7 +102,7 @@ export const SalaDeProfesoresPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-page text-ink-soft">
+    <div className="page">
 
       <PageMeta
         title="Sala de Profesores (Q&A)"
@@ -119,81 +110,70 @@ export const SalaDeProfesoresPage: React.FC = () => {
         path="/sala-de-profesores"
       />
 
-      {/* HERO BANNER */}
-      <section className="relative h-64 sm:h-80 flex items-center justify-center overflow-hidden border-b border-line">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-30"
-          style={{
-            backgroundImage: `url('/images/hero-manuscritos.jpg')`
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-page via-page/75 to-transparent" />
+      {/* HERO */}
+      <section className="page-hero page-hero--tall">
+        <BackdropImage src="/images/hero-manuscritos.jpg" className="backdrop sala__hero-bg" />
+        <div className="page-hero__overlay page-hero__overlay--light" />
 
-        <div className="relative text-center px-4 z-10 max-w-4xl mx-auto">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-surface/90 border border-gold/40 text-xs font-semibold text-gold mb-3 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-gold" />
-            <span className="uppercase tracking-widest font-title-ancient">Educación & Cátedras en Vivo</span>
+        <div className="sala__hero-inner">
+          <div className="sala__hero-tag">
+            <Sparkles className="icon icon--tiny icon--gold" />
+            <span className="sala__hero-tag-text">Educación &amp; Cátedras en Vivo</span>
           </div>
 
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-ink drop-shadow-md">
-            Sala de Profesores
-          </h1>
+          <h1 className="sala__hero-title">Sala de Profesores</h1>
 
-          <p className="text-xs sm:text-base text-ink-soft mt-3 max-w-2xl mx-auto font-light leading-relaxed">
+          <p className="sala__hero-text">
             Recopilación de los vídeos enfocados en preguntas y respuestas de nuestros asistentes.
           </p>
 
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs">
-            <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-surface border border-line text-ink-soft">
-              <Radio className="w-3.5 h-3.5 text-accent animate-pulse" />
+          <div className="sala__hero-meta">
+            <span className="sala__hero-live">
+              <Radio className="icon icon--tiny icon--accent sala__hero-live-icon" />
               <span>Lista Oficial de Reproducción YouTube</span>
             </span>
             <a
               href={PLAYLIST_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-accent/10 border border-accent/30 text-accent hover:bg-accent hover:text-white transition-colors"
+              className="sala__hero-link"
             >
-              <YoutubeIcon className="w-3.5 h-3.5" />
+              <YoutubeIcon className="icon icon--tiny" />
               <span>Abrir en YouTube ({totalVideos} videos)</span>
-              <ExternalLink className="w-3 h-3 ml-0.5" />
+              <ExternalLink className="icon icon--xs" />
             </a>
           </div>
         </div>
       </section>
 
-      {/* CONTENIDO PRINCIPAL */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+      {/* CONTENIDO */}
+      <div className="sala__body">
 
-        {/* SECCIÓN DEL REPRODUCTOR (DINÁMICO: LISTA COMPLETA O VIDEO ESPECÍFICO) */}
+        {/* Reproductor */}
         <section
           id="sala-player-section"
           aria-labelledby="player-heading"
-          className="p-4 sm:p-6 rounded-2xl bg-surface border border-line shadow-2xl space-y-4"
+          className="sala__player"
         >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-line pb-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-accent/15 border border-accent/30 flex items-center justify-center text-accent">
-                <Play className="w-5 h-5 fill-current" />
+          <div className="sala__player-head">
+            <div className="sala__player-id">
+              <div className="sala__player-icon">
+                <Play className="sala__player-icon-svg" />
               </div>
               <div>
-                <span className="text-[11px] uppercase tracking-wider text-gold font-bold block">
+                <span className="sala__player-label">
                   {selectedVideo ? 'Reproduciendo Sesión Individual' : 'Reproductor Oficial de la Playlist'}
                 </span>
-                <h2 id="player-heading" className="font-serif text-lg sm:text-xl font-bold text-ink leading-tight">
+                <h2 id="player-heading" className="sala__player-title">
                   {selectedVideo ? selectedVideo.title : 'Lista de Reproducción Completa — Sala de Profesores'}
                 </h2>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="sala__player-actions">
               {selectedVideo && (
-                <button
-                  type="button"
-                  onClick={handleResetToPlaylist}
-                  className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-soft hover:bg-gold/20 text-xs font-semibold text-accent transition-colors"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
+                <button type="button" onClick={handleResetToPlaylist} className="sala__reset">
+                  <RotateCcw className="icon icon--tiny" />
                   <span>Ver Playlist Completa</span>
                 </button>
               )}
@@ -201,21 +181,19 @@ export const SalaDeProfesoresPage: React.FC = () => {
                 href={selectedVideo ? `https://www.youtube.com/watch?v=${selectedVideo.id}&list=${PLAYLIST_ID}` : PLAYLIST_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg border border-line text-xs font-medium text-ink-soft hover:text-ink hover:border-gold transition-colors"
+                className="sala__external"
               >
-                <YoutubeIcon className="w-3.5 h-3.5 text-accent" />
+                <YoutubeIcon className="icon icon--tiny icon--accent" />
                 <span>Ver en YouTube</span>
               </a>
             </div>
           </div>
 
-          {/* IFRAME RESPONSIVE */}
-          <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black shadow-inner border border-line">
+          <div className="video-frame">
             {selectedVideo ? (
               <iframe
                 src={`https://www.youtube-nocookie.com/embed/${selectedVideo.id}?autoplay=1&rel=0`}
                 title={selectedVideo.title}
-                className="w-full h-full border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
@@ -223,7 +201,6 @@ export const SalaDeProfesoresPage: React.FC = () => {
               <iframe
                 src={`https://www.youtube-nocookie.com/embed/videoseries?list=${PLAYLIST_ID}`}
                 title="Lista Oficial Sala de Profesores - Escuela de Alexandría"
-                className="w-full h-full border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
@@ -231,51 +208,42 @@ export const SalaDeProfesoresPage: React.FC = () => {
           </div>
 
           {selectedVideo && selectedVideo.summary && (
-            <div className="p-3.5 rounded-xl bg-sunken border border-line/60 text-xs text-ink-soft flex items-start space-x-2">
-              <CheckCircle2 className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
-              <p className="leading-relaxed">
-                <strong className="text-ink font-semibold">Resumen de la sesión: </strong>
+            <div className="sala__summary">
+              <CheckCircle2 className="sala__summary-icon" />
+              <p>
+                <strong>Resumen de la sesión: </strong>
                 {selectedVideo.summary}
               </p>
             </div>
           )}
         </section>
 
-        {/* BARRA DE FILTROS Y BÚSQUEDA */}
-        <section aria-label="Buscador y filtros" className="space-y-4">
-          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-            
-            {/* Buscador */}
-            <div className="relative flex-1 max-w-lg">
-              <Search className="w-4 h-4 text-ink-muted absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                placeholder="Buscar por tema, pregunta, sectas, canon, qumrán..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface border border-line focus:border-gold focus:outline-none text-xs sm:text-sm text-ink placeholder-ink-muted shadow-inner transition-colors"
-              />
-              {searchTerm && (
-                <button
-                  type="button"
-                  onClick={() => setSearchTerm('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-ink-muted hover:text-ink"
-                >
-                  Limpiar
-                </button>
-              )}
+        {/* Filtros */}
+        <section aria-label="Buscador y filtros" className="sala__filters">
+          <div className="sala__filter-row">
+            <div className="sala__search">
+              <div className="search">
+                <Search className="search__icon" />
+                <input
+                  type="text"
+                  placeholder="Buscar por tema, pregunta, sectas, canon, qumrán..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="search__input"
+                />
+                {searchTerm && (
+                  <button type="button" onClick={() => setSearchTerm('')} className="search__clear">
+                    Limpiar
+                  </button>
+                )}
+              </div>
             </div>
 
-            {/* Píldoras de filtro */}
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="sala__chips">
               <button
                 type="button"
                 onClick={() => setFilterType('all')}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                  filterType === 'all'
-                    ? 'bg-accent text-white shadow-md'
-                    : 'bg-surface border border-line text-ink-soft hover:bg-soft'
-                }`}
+                className={filterType === 'all' ? 'chip is-active' : 'chip'}
               >
                 Todos ({totalVideos})
               </button>
@@ -283,63 +251,54 @@ export const SalaDeProfesoresPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setFilterType('qna')}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all inline-flex items-center space-x-1.5 ${
-                  filterType === 'qna'
-                    ? 'bg-accent text-white shadow-md'
-                    : 'bg-surface border border-line text-ink-soft hover:bg-soft'
-                }`}
+                className={filterType === 'qna' ? 'chip is-active' : 'chip'}
               >
-                <HelpCircle className="w-3.5 h-3.5" />
+                <HelpCircle className="icon icon--tiny" />
                 <span>Tiempo de Preguntas ({qnaCount})</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setFilterType('masterclass')}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all inline-flex items-center space-x-1.5 ${
-                  filterType === 'masterclass'
-                    ? 'bg-accent text-white shadow-md'
-                    : 'bg-surface border border-line text-ink-soft hover:bg-soft'
-                }`}
+                className={filterType === 'masterclass' ? 'chip is-active' : 'chip'}
               >
-                <Video className="w-3.5 h-3.5" />
+                <Video className="icon icon--tiny" />
                 <span>Exposiciones ({masterclassCount})</span>
               </button>
 
-              {/* Orden */}
               <button
                 type="button"
                 onClick={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')}
                 title="Cambiar orden"
-                className="px-3 py-1.5 rounded-xl text-xs font-medium bg-surface border border-line text-ink-soft hover:text-ink hover:border-gold transition-colors inline-flex items-center space-x-1.5 ml-auto md:ml-0"
+                className="sala__sort"
               >
-                <SlidersHorizontal className="w-3.5 h-3.5 text-gold" />
+                <SlidersHorizontal className="icon icon--tiny icon--gold" />
                 <span>{sortOrder === 'desc' ? 'Más recientes' : 'Cronológico'}</span>
               </button>
             </div>
           </div>
 
-          <div className="flex items-center justify-between text-xs text-ink-muted px-1">
+          <div className="sala__count">
             <span>
-              Mostrando <strong className="text-ink font-semibold">{filteredVideos.length}</strong> de {totalVideos} sesiones
+              Mostrando <strong>{filteredVideos.length}</strong> de {totalVideos} sesiones
             </span>
-            <span className="hidden sm:inline">
+            <span className="sala__count-hint">
               Haz clic en cualquier video para reproducirlo inmediatamente
             </span>
           </div>
         </section>
 
-        {/* GRILLA DE VIDEOS ESTILO EDITORIAL */}
+        {/* Catálogo */}
         {loading ? (
-          <div className="text-center py-24 text-ink-muted space-y-3">
-            <div className="w-8 h-8 border-2 border-gold border-t-transparent rounded-full animate-spin mx-auto" />
-            <p className="text-sm">Cargando catálogo audiovisual de Sala de Profesores...</p>
+          <div className="sala__loading">
+            <div className="spinner" />
+            <p>Cargando catálogo audiovisual de Sala de Profesores...</p>
           </div>
         ) : filteredVideos.length === 0 ? (
-          <div className="text-center py-20 bg-surface rounded-2xl border border-line p-8 space-y-3">
-            <HelpCircle className="w-10 h-10 text-gold mx-auto opacity-70" />
-            <h3 className="font-serif text-lg font-bold text-ink">No se encontraron sesiones</h3>
-            <p className="text-xs text-ink-muted max-w-md mx-auto">
+          <div className="sala__empty">
+            <HelpCircle className="sala__empty-icon" />
+            <h3 className="sala__empty-title">No se encontraron sesiones</h3>
+            <p className="sala__empty-text">
               No hay videos que coincidan con los términos de búsqueda. Intenta con otra palabra clave como "sectas", "canon", "ciencias" o "mitos".
             </p>
             <button
@@ -348,13 +307,13 @@ export const SalaDeProfesoresPage: React.FC = () => {
                 setSearchTerm('');
                 setFilterType('all');
               }}
-              className="mt-2 px-4 py-2 rounded-xl bg-soft text-accent text-xs font-semibold hover:bg-gold/20"
+              className="sala__empty-reset"
             >
               Restablecer filtros
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="sala__grid">
             {filteredVideos.map((video) => {
               const isCurrentlyPlaying = selectedVideo?.id === video.id;
 
@@ -362,80 +321,57 @@ export const SalaDeProfesoresPage: React.FC = () => {
                 <article
                   key={video.id}
                   onClick={() => handleSelectVideo(video)}
-                  className={`group rounded-2xl bg-surface border transition-all duration-300 shadow-lg hover:shadow-2xl flex flex-col overflow-hidden cursor-pointer ${
-                    isCurrentlyPlaying
-                      ? 'border-gold ring-2 ring-gold/40 shadow-gold/10'
-                      : 'border-line hover:border-gold/60'
-                  }`}
+                  className={isCurrentlyPlaying ? 'video-card is-playing' : 'video-card'}
                 >
-                  {/* Miniatura del video */}
-                  <div className="relative aspect-video w-full overflow-hidden bg-sunken">
+                  <div className="video-card__media">
                     <img
                       src={video.thumb}
                       alt={video.title}
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="video-card__image"
                     />
 
-                    {/* Overlay al pasar el ratón */}
-                    <div className="absolute inset-0 bg-ink/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-accent text-white flex items-center justify-center shadow-2xl transform scale-90 group-hover:scale-100 transition-transform">
-                        <Play className="w-5 h-5 fill-current ml-0.5" />
+                    <div className="video-card__overlay">
+                      <div className="video-card__play">
+                        <Play className="video-card__play-icon" />
                       </div>
                     </div>
 
-                    {/* Badge de Duración */}
                     {video.duration && (
-                      <span className="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-sm text-[11px] font-semibold text-white flex items-center space-x-1">
-                        <Clock className="w-3 h-3 text-gold" />
+                      <span className="video-card__duration">
+                        <Clock className="icon icon--xs icon--gold" />
                         <span>{video.duration}</span>
                       </span>
                     )}
 
-                    {/* Badge de Tipo: Preguntas o Masterclass */}
-                    <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
+                    <div className="video-card__badges">
                       {video.episodeNumber && (
-                        <span className="px-2 py-0.5 rounded-md bg-page/90 backdrop-blur-sm border border-line text-[10px] font-bold text-ink">
-                          Ep. {video.episodeNumber}
-                        </span>
+                        <span className="video-card__episode">Ep. {video.episodeNumber}</span>
                       )}
                       {video.isQandA ? (
-                        <span className="px-2 py-0.5 rounded-md bg-accent/90 text-white text-[10px] font-bold shadow-sm flex items-center space-x-1">
-                          <HelpCircle className="w-3 h-3" />
-                          <span>Q&A</span>
+                        <span className="video-card__type video-card__type--qna">
+                          <HelpCircle className="video-card__type-icon" />
+                          <span>Q&amp;A</span>
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 rounded-md bg-gold/90 text-ink text-[10px] font-bold shadow-sm">
-                          Cátedra
-                        </span>
+                        <span className="video-card__type video-card__type--lesson">Cátedra</span>
                       )}
                     </div>
 
-                    {isCurrentlyPlaying && (
-                      <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-md bg-accent text-white text-[10px] font-bold shadow-md animate-pulse">
-                        Reproduciendo ahora
-                      </div>
-                    )}
+                    {isCurrentlyPlaying && <div className="video-card__now">Reproduciendo ahora</div>}
                   </div>
 
-                  {/* Información del video */}
-                  <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
-                    <div className="space-y-1.5">
-                      <h3 className="font-serif text-sm sm:text-base font-bold text-ink group-hover:text-accent transition-colors leading-snug line-clamp-2">
-                        {video.title}
-                      </h3>
+                  <div className="video-card__body">
+                    <div className="video-card__texts">
+                      <h3 className="video-card__title">{video.title}</h3>
 
-                      {video.summary && (
-                        <p className="text-xs text-ink-muted font-light line-clamp-2 leading-relaxed">
-                          {video.summary}
-                        </p>
-                      )}
+                      {video.summary && <p className="video-card__summary">{video.summary}</p>}
                     </div>
 
-                    <div className="pt-2 border-t border-line/60 flex items-center justify-between text-xs">
-                      <span className="inline-flex items-center space-x-1 text-accent font-semibold group-hover:underline">
+                    <div className="video-card__footer">
+                      <span className="video-card__cta">
                         <span>{isCurrentlyPlaying ? 'En reproducción' : 'Reproducir sesión'}</span>
-                        <ChevronRight className="w-3.5 h-3.5" />
+                        <ChevronRight className="icon icon--tiny" />
                       </span>
 
                       <a
@@ -444,9 +380,9 @@ export const SalaDeProfesoresPage: React.FC = () => {
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
                         title="Ver directamente en YouTube"
-                        className="text-ink-muted hover:text-accent p-1 transition-colors"
+                        className="video-card__external"
                       >
-                        <ExternalLink className="w-3.5 h-3.5" />
+                        <ExternalLink className="icon icon--tiny" />
                       </a>
                     </div>
                   </div>
@@ -456,31 +392,26 @@ export const SalaDeProfesoresPage: React.FC = () => {
           </div>
         )}
 
-        {/* NOTA DE ACTUALIZACIÓN DINÁMICA */}
-        <section className="p-6 rounded-2xl bg-sunken border border-line shadow-sm space-y-3 text-xs text-ink-soft">
-          <div className="flex items-center space-x-2 text-gold font-bold">
-            <Radio className="w-4 h-4 text-accent" />
-            <span className="uppercase tracking-wider">Conexión Dinámica con YouTube</span>
+        {/* Nota de actualización */}
+        <section className="sala__info">
+          <div className="sala__info-head">
+            <Radio className="icon icon--accent" />
+            <span>Conexión Dinámica con YouTube</span>
           </div>
-          <p className="font-light leading-relaxed">
-            Esta sección está enlazada directamente con la lista de reproducción oficial de la Escuela de Alexandría (<strong className="text-ink font-semibold">ID: {PLAYLIST_ID}</strong>). El reproductor principal reproduce la lista completa en vivo directamente desde los servidores de YouTube, por lo que cualquier nuevo video que los docentes publiquen se incorporará automáticamente a la secuencia.
+          <p className="sala__info-text">
+            Esta sección está enlazada directamente con la lista de reproducción oficial de la Escuela de Alexandría (<strong>ID: {PLAYLIST_ID}</strong>). El reproductor principal reproduce la lista completa en vivo directamente desde los servidores de YouTube, por lo que cualquier nuevo video que los docentes publiquen se incorporará automáticamente a la secuencia.
           </p>
-          <div className="pt-1 flex flex-wrap items-center gap-3">
-            <a
-              href={PLAYLIST_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center space-x-1.5 font-semibold text-accent hover:underline"
-            >
+          <div className="sala__info-links">
+            <a href={PLAYLIST_URL} target="_blank" rel="noopener noreferrer" className="sala__info-link">
               <span>Acceder a la lista completa en YouTube</span>
-              <ExternalLink className="w-3 h-3" />
+              <ExternalLink className="icon icon--xs" />
             </a>
-            <span className="text-ink-muted">&bull;</span>
+            <span>&bull;</span>
             <a
-              href="https://www.youtube.com/channel/UCZZwgfDZOWO4tlEAXUuVtQA?sub_confirmation=1"
+              href={`${SITE.social.youtubeChannel}?sub_confirmation=1`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-1.5 font-semibold text-ink-soft hover:text-ink"
+              className="sala__info-link sala__info-link--muted"
             >
               <span>Suscribirse al canal oficial</span>
             </a>

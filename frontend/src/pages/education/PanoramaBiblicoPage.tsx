@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PlayCircle, Compass } from 'lucide-react';
 import { getCourseSync } from '../../data/coursesData';
 import { PageMeta } from '../../components/PageMeta';
+import { BackdropImage } from '../../components/BackdropImage';
 
 /** Ciclo de historia bíblica: episodios tomados del programa `panorama-biblico`. */
 const panorama = getCourseSync('panorama-biblico');
@@ -12,43 +13,32 @@ export const PanoramaBiblicoPage: React.FC = () => {
   const selected = episodes.find((lesson) => lesson.id === selectedId) ?? episodes[0];
 
   return (
-    <div className="min-h-screen bg-page text-ink-soft">
+    <div className="page">
 
       <PageMeta title={panorama.title} description={panorama.summary} path="/panorama-biblico" />
 
-      {/* HERO BANNER */}
-      <section className="relative h-64 sm:h-80 flex items-center justify-center overflow-hidden border-b border-line">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-35"
-          style={{ backgroundImage: `url('${panorama.heroImage}')` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-page via-page/60 to-transparent" />
+      {/* HERO */}
+      <section className="page-hero page-hero--tall">
+        <BackdropImage src={panorama.heroImage!} className="backdrop series__hero-bg" />
+        <div className="page-hero__overlay" />
 
-        <div className="relative text-center px-4 z-10">
-          <span className="text-xs uppercase tracking-widest text-gold font-bold font-title-ancient">
-            {panorama.kicker}
-          </span>
-          <h1 className="font-serif text-4xl sm:text-6xl font-bold text-ink mt-2 drop-shadow-lg">
-            Panorama Bíblico
-          </h1>
+        <div className="page-hero__inner">
+          <span className="page-hero__kicker">{panorama.kicker}</span>
+          <h1 className="page-hero__title">Panorama Bíblico</h1>
         </div>
       </section>
 
-      {/* REPRODUCTOR Y LISTA DE EPISODIOS */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/* Reproductor y episodios */}
+      <div className="series__body">
+        <div className="series__grid">
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-          {/* Reproductor principal */}
-          <div className="lg:col-span-2 space-y-6">
-            <div className="rounded-2xl overflow-hidden bg-surface border border-line shadow-2xl p-6 space-y-6">
-
+          <div className="series__main">
+            <div className="series__panel">
               {selected.youtubeId && (
-                <div className="aspect-video w-full rounded-xl overflow-hidden bg-black border border-line shadow-inner">
+                <div className="video-frame">
                   <iframe
                     src={`https://www.youtube.com/embed/${selected.youtubeId}`}
                     title={selected.title}
-                    className="w-full h-full border-0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
@@ -56,29 +46,21 @@ export const PanoramaBiblicoPage: React.FC = () => {
               )}
 
               <div>
-                <span className="text-xs font-semibold uppercase tracking-wider text-gold">
-                  {panorama.tagline}
-                </span>
-                <h2 className="font-serif text-2xl font-bold text-ink mt-1 mb-2">
-                  {selected.title}
-                </h2>
-                <p className="text-xs sm:text-sm text-ink-soft leading-relaxed font-light bg-sunken p-4 rounded-xl border border-line">
-                  {selected.content}
-                </p>
+                <span className="series__info-label">{panorama.tagline}</span>
+                <h2 className="series__info-title">{selected.title}</h2>
+                <p className="series__info-text">{selected.content}</p>
               </div>
-
             </div>
           </div>
 
-          {/* Temario de episodios */}
-          <div className="space-y-4">
-            <div className="p-6 rounded-2xl bg-surface border border-line shadow-xl">
-              <h3 className="font-serif text-xl font-bold text-ink mb-4 flex items-center space-x-2">
-                <Compass className="w-5 h-5 text-gold" />
+          <div className="series__sidebar">
+            <div className="panel">
+              <h3 className="series__list-title">
+                <Compass className="icon icon--md icon--gold" />
                 <span>Episodios de la Serie</span>
               </h3>
 
-              <div className="space-y-2.5 max-h-[600px] overflow-y-auto pr-1">
+              <div className="series__list series__list--scroll">
                 {episodes.map((lesson, idx) => {
                   const isSelected = selected.id === lesson.id;
 
@@ -87,20 +69,12 @@ export const PanoramaBiblicoPage: React.FC = () => {
                       key={lesson.id}
                       type="button"
                       onClick={() => setSelectedId(lesson.id)}
-                      className={`w-full text-left p-3.5 rounded-xl border transition-all flex items-start space-x-3 ${
-                        isSelected
-                          ? 'bg-soft border-gold shadow-md'
-                          : 'bg-parchment border-line hover:border-line-strong text-ink-soft'
-                      }`}
+                      className={isSelected ? 'lesson-item is-selected' : 'lesson-item'}
                     >
-                      <PlayCircle className={`w-4 h-4 mt-0.5 flex-shrink-0 ${isSelected ? 'text-accent' : 'text-ink-muted'}`} />
+                      <PlayCircle className="lesson-item__icon" />
                       <div>
-                        <span className="text-[10px] font-semibold text-gold uppercase tracking-wider block">
-                          Parte {idx + 1}
-                        </span>
-                        <p className={`text-xs font-medium leading-snug mt-0.5 ${isSelected ? 'text-ink' : 'text-ink-soft'}`}>
-                          {lesson.title}
-                        </p>
+                        <span className="series__item-label">Parte {idx + 1}</span>
+                        <p className="lesson-item__title">{lesson.title}</p>
                       </div>
                     </button>
                   );
@@ -110,7 +84,6 @@ export const PanoramaBiblicoPage: React.FC = () => {
           </div>
 
         </div>
-
       </div>
     </div>
   );

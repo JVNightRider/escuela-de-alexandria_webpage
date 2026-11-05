@@ -56,7 +56,7 @@ export async function getSalaProfesoresVideos(manualApiKey?: string): Promise<Pl
           try {
             localStorage.setItem(CACHE_KEY, JSON.stringify(liveVideos));
             localStorage.setItem(CACHE_TIME_KEY, new Date().toISOString());
-          } catch (e) {
+          } catch {
             // LocalStorage might be full or disabled, ignore
           }
 
@@ -90,7 +90,7 @@ export async function getSalaProfesoresVideos(manualApiKey?: string): Promise<Pl
         };
       }
     }
-  } catch (e) {
+  } catch {
     // ignore localStorage errors
   }
 

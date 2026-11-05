@@ -1,1 +1,838 @@
-/* Sección: educación. /seminarios, /catedra-exclusiva, /cronicas, /panorama-biblico, /canones-biblicos y /sala-de-profesores. */
+/*
+ * Sección: educación.
+ * /seminarios, /catedra-exclusiva, /cronicas, /panorama-biblico,
+ * /canones-biblicos y /sala-de-profesores.
+ */
+
+/* ============================================================
+ * Seminarios y brochure (/seminarios)
+ * ============================================================ */
+
+.seminars__hero-bg {
+  opacity: 0.25;
+}
+
+.seminars__body {
+  @apply mx-auto max-w-6xl space-y-16 px-4 py-12 sm:px-6 lg:px-8;
+}
+
+.seminars__section {
+  @apply space-y-5;
+}
+
+.seminars__head {
+  @apply flex flex-col justify-between gap-4 border-b border-line pb-4 sm:flex-row sm:items-end;
+}
+
+.seminars__label {
+  @apply block text-xs font-bold uppercase tracking-widest text-gold;
+}
+
+.seminars__title {
+  @apply mt-1 font-serif text-2xl font-bold leading-tight text-ink sm:text-3xl;
+}
+
+.seminars__subtitle {
+  @apply mt-1 text-xs text-ink-muted;
+}
+
+.seminars__actions {
+  @apply flex items-center gap-3;
+}
+
+.seminars__action {
+  @apply inline-flex items-center space-x-2 rounded-xl px-3.5 py-2 text-xs font-semibold transition-all;
+}
+
+.seminars__action--zoom {
+  @apply border border-line text-ink shadow-sm hover:border-gold/60;
+  background-color: var(--color-surface);
+}
+
+.seminars__action--open {
+  @apply text-accent hover:bg-gold/20;
+  background-color: var(--color-soft);
+}
+
+.seminars__brochure {
+  @apply overflow-hidden rounded-2xl border border-line p-3 shadow-2xl sm:p-5;
+  background-color: var(--color-surface);
+  background-image: var(--surface-raised-layers);
+}
+
+.seminars__canvas {
+  @apply relative cursor-zoom-in overflow-hidden rounded-xl border border-line;
+  background-color: var(--color-sunken);
+}
+
+.seminars__image {
+  @apply h-auto w-full object-contain transition-transform duration-500;
+}
+
+.seminars__canvas:hover .seminars__image {
+  transform: scale(1.01);
+}
+
+.seminars__hint {
+  @apply pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity;
+  background-color: rgb(43 16 10 / 0.1);
+}
+
+.seminars__canvas:hover .seminars__hint {
+  opacity: 1;
+}
+
+.seminars__hint-badge {
+  @apply flex items-center space-x-2 rounded-xl border border-line px-4 py-2 text-xs font-bold text-ink shadow-lg backdrop-blur-md;
+  background-color: rgb(244 236 220 / 0.9);
+}
+
+.seminars__foot {
+  @apply mt-4 flex flex-col items-start justify-between gap-3 text-xs text-ink-soft sm:flex-row sm:items-center;
+}
+
+.seminars__areas {
+  @apply font-light leading-relaxed;
+}
+
+.seminars__download {
+  @apply inline-flex items-center space-x-1.5 whitespace-nowrap rounded-lg border border-line px-3 py-1.5 font-medium text-ink-soft transition-colors hover:border-gold hover:text-ink;
+  font-size: 11px;
+}
+
+.seminars__list-head {
+  @apply border-b border-line pb-4;
+}
+
+.seminars__items {
+  @apply space-y-5;
+}
+
+.seminar-card {
+  @apply flex flex-col items-start gap-6 rounded-2xl border border-line p-5 shadow-lg transition-all hover:border-gold/60 hover:shadow-2xl sm:flex-row sm:items-center sm:p-6;
+  background-color: var(--color-surface);
+}
+
+.seminar-card__media {
+  @apply h-48 w-full flex-shrink-0 overflow-hidden rounded-xl border border-line sm:h-36 sm:w-48;
+  background-color: var(--color-sunken);
+}
+
+.seminar-card__image {
+  @apply h-full w-full object-cover transition-transform duration-500;
+}
+
+.seminar-card:hover .seminar-card__image {
+  transform: scale(1.05);
+}
+
+.seminar-card__body {
+  @apply flex-1 space-y-2;
+}
+
+.seminar-card__date {
+  @apply flex items-center space-x-2 font-medium text-gold;
+  font-size: 11px;
+}
+
+.seminar-card__title {
+  @apply font-serif text-lg font-bold leading-snug text-ink transition-colors sm:text-xl;
+}
+
+.seminar-card:hover .seminar-card__title {
+  color: var(--color-accent);
+}
+
+.seminar-card__text {
+  @apply text-xs font-light leading-relaxed text-ink-soft sm:text-sm;
+}
+
+.seminar-card__cta {
+  @apply inline-flex items-center space-x-1.5 pt-2 text-xs font-semibold text-accent hover:underline;
+}
+
+/* ============================================================
+ * Cátedra exclusiva (/catedra-exclusiva)
+ * ============================================================ */
+
+.catedra__hero-bg {
+  opacity: 0.3;
+}
+
+.catedra__body {
+  @apply mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8;
+}
+
+.catedra__archive {
+  @apply mb-12 flex flex-col items-center justify-between gap-4 rounded-xl border border-line p-4 sm:flex-row;
+  background-color: var(--color-surface);
+}
+
+.catedra__archive-text {
+  @apply flex items-center space-x-3;
+}
+
+.catedra__archive-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.catedra__archive-copy {
+  @apply text-xs text-ink-soft sm:text-sm;
+}
+
+.catedra__archive-link {
+  @apply flex flex-shrink-0 items-center space-x-1.5 rounded-lg px-4 py-2 text-xs font-bold text-ink-soft transition-all;
+  background-color: var(--color-soft);
+}
+
+.catedra__archive-link:hover {
+  @apply text-ink;
+  background-color: var(--color-gold);
+}
+
+.catedra__grid {
+  @apply grid grid-cols-1 items-start gap-12 lg:grid-cols-2;
+}
+
+.catedra__col {
+  @apply space-y-8;
+}
+
+.catedra__portrait {
+  @apply overflow-hidden rounded-2xl border border-line shadow-2xl;
+  background-color: var(--color-surface);
+}
+
+.catedra__portrait-image {
+  @apply h-80 w-full object-cover object-top;
+  filter: contrast(1.05);
+}
+
+.catedra__portrait-caption {
+  @apply border-t border-line p-4 text-center;
+  background-color: var(--color-sunken);
+}
+
+.catedra__lecturer {
+  @apply font-serif text-sm font-bold text-accent;
+}
+
+.catedra__lecturer-role {
+  @apply text-ink-muted;
+  font-size: 11px;
+}
+
+.catedra__video {
+  @apply overflow-hidden rounded-2xl border border-line bg-black shadow-xl;
+}
+
+.catedra__payment {
+  @apply space-y-4 rounded-2xl border border-line p-6 text-center shadow-xl;
+  background-color: var(--color-surface);
+}
+
+.catedra__payment-text {
+  @apply text-xs font-semibold text-ink-soft;
+}
+
+.catedra__payment-actions {
+  @apply flex flex-col justify-center gap-3 sm:flex-row;
+}
+
+.catedra__intro {
+  @apply space-y-8;
+}
+
+.catedra__title {
+  @apply mt-2 font-serif text-3xl font-bold leading-tight text-ink sm:text-4xl;
+}
+
+.catedra__presenter {
+  @apply mt-1 text-sm font-semibold text-accent;
+}
+
+.catedra__card {
+  @apply space-y-4 rounded-2xl border border-line p-6 text-sm font-light leading-relaxed text-ink-soft;
+  background-color: var(--color-surface);
+}
+
+.catedra__topics {
+  @apply space-y-2 border-t border-line pt-2;
+}
+
+.catedra__topics-title {
+  @apply font-serif text-base font-bold text-ink;
+}
+
+.catedra__topics-list {
+  @apply list-inside list-disc space-y-2 text-xs text-ink-soft;
+}
+
+.catedra__profile {
+  @apply space-y-3 rounded-2xl border border-line p-6;
+  background-color: var(--color-surface);
+}
+
+.catedra__profile-title {
+  @apply flex items-center space-x-2 font-serif text-xl font-bold text-ink;
+}
+
+.catedra__profile-bio {
+  @apply text-xs font-light leading-relaxed text-ink-soft;
+}
+
+.catedra__credentials {
+  @apply space-y-1.5 border-t border-line pt-2 text-xs text-ink-soft;
+}
+
+/* ============================================================
+ * Crónicas (/cronicas)
+ * ============================================================ */
+
+.cronicas__hero-bg {
+  opacity: 0.3;
+}
+
+.cronicas__body {
+  @apply mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8;
+}
+
+.cronicas__intro {
+  @apply mx-auto mb-16 max-w-3xl text-center;
+}
+
+.cronicas__quote {
+  @apply font-serif text-lg italic leading-relaxed text-ink-soft sm:text-xl;
+}
+
+.cronicas__player {
+  @apply mb-16 rounded-2xl border border-gold/60 p-6 shadow-2xl;
+  background-color: var(--color-surface);
+  animation: fadeIn 0.18s ease-out;
+}
+
+.cronicas__player-head {
+  @apply mb-4 flex items-center justify-between;
+}
+
+.cronicas__player-title {
+  @apply flex items-center space-x-2 font-serif text-xl font-bold text-ink;
+}
+
+.cronicas__player-close {
+  @apply rounded px-3 py-1 text-xs text-ink-muted hover:text-accent;
+  background-color: var(--color-soft);
+}
+
+.cronicas__grid {
+  @apply mb-20 grid grid-cols-1 gap-8 md:grid-cols-3;
+}
+
+.cronica-card {
+  @apply flex flex-col overflow-hidden rounded-2xl border border-line shadow-2xl transition-all duration-300 hover:-translate-y-1.5 hover:border-gold;
+  background-color: var(--color-surface);
+}
+
+.cronica-card__media {
+  @apply relative overflow-hidden;
+  aspect-ratio: 3 / 4;
+  background-color: var(--color-sunken);
+}
+
+.cronica-card__image {
+  @apply h-full w-full object-cover object-top transition-transform duration-700;
+}
+
+.cronica-card:hover .cronica-card__image {
+  transform: scale(1.05);
+}
+
+.cronica-card__badge {
+  @apply absolute right-3 top-3;
+}
+
+.cronica-card__badge--free {
+  @apply rounded-full border border-accent-dark bg-accent px-3 py-1 text-xs font-bold text-white shadow-lg;
+}
+
+.cronica-card__badge--paid {
+  @apply rounded-full border border-gold/60 px-3 py-1 text-xs font-bold text-accent shadow-lg;
+  background-color: rgb(244 236 220 / 0.9);
+}
+
+.cronica-card__body {
+  @apply flex flex-1 flex-col justify-between space-y-4 p-6;
+  background-image: linear-gradient(to bottom, var(--color-surface), var(--color-sunken));
+}
+
+.cronica-card__title {
+  @apply mb-2 font-serif text-lg font-bold leading-snug text-ink transition-colors;
+}
+
+.cronica-card:hover .cronica-card__title {
+  color: var(--color-accent);
+}
+
+.cronica-card__speaker {
+  @apply font-serif text-base font-semibold text-gold;
+}
+
+.cronica-card__note {
+  @apply mt-1 block text-xs font-medium text-ink-muted;
+}
+
+.cronica-card__actions {
+  @apply space-y-2 border-t border-line pt-4;
+}
+
+.cronica-card__buy-group {
+  @apply space-y-2;
+}
+
+.cronica-card__buy {
+  @apply flex w-full items-center justify-center space-x-2 rounded-xl px-4 py-2.5 text-xs font-bold text-ink shadow-md transition-all;
+  background-color: var(--color-gold);
+}
+
+.cronica-card__buy:hover {
+  background-color: var(--color-gold-light);
+}
+
+.cronica-card__details {
+  @apply block w-full rounded-xl border border-line-strong px-3 py-2 text-center text-xs font-semibold text-ink-soft transition-colors;
+  background-color: var(--color-soft);
+}
+
+.cronicas__notice {
+  @apply mx-auto max-w-3xl space-y-4 rounded-2xl border border-line p-8 text-center shadow-xl;
+  background-color: var(--color-surface);
+}
+
+.cronicas__notice-text {
+  @apply text-sm font-semibold text-ink-soft;
+}
+
+.cronicas__notice-link {
+  @apply font-bold text-accent hover:underline;
+}
+
+.cronicas__notice-note {
+  @apply text-xs text-ink-muted;
+}
+
+.cronicas__legal {
+  @apply mx-auto mt-12 max-w-2xl space-y-2 rounded-xl border border-line p-6 text-center;
+  background-color: var(--color-sunken);
+}
+
+.cronicas__legal-head {
+  @apply flex items-center justify-center space-x-2 text-xs font-bold uppercase tracking-wider;
+  color: #f59e0b;
+}
+
+.cronicas__legal-text {
+  @apply text-ink-muted;
+  font-size: 11px;
+  line-height: 1.625;
+}
+
+.cronicas__legal-mark {
+  @apply pt-1 text-xs font-bold text-ink-soft;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+ * Series de video: Panorama bíblico y Cánones (/panorama-biblico, /canones-biblicos)
+ * ============================================================ */
+
+.series__hero-bg {
+  opacity: 0.35;
+}
+
+.series__hero-bg--canon {
+  opacity: 0.3;
+}
+
+.series__body {
+  @apply mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8;
+}
+
+.series__grid {
+  @apply grid grid-cols-1 gap-8 lg:grid-cols-3;
+}
+
+.series__main {
+  @apply space-y-6 lg:col-span-2;
+}
+
+.series__panel {
+  @apply space-y-6 overflow-hidden rounded-2xl border border-line p-6 shadow-2xl;
+  background-color: var(--color-surface);
+  background-image: var(--surface-raised-layers);
+}
+
+.series__info-label {
+  @apply text-xs font-semibold uppercase tracking-wider text-gold;
+}
+
+.series__info-title {
+  @apply mb-2 mt-1 font-serif text-2xl font-bold text-ink;
+}
+
+.series__info-text {
+  @apply rounded-xl border border-line p-4 text-xs font-light leading-relaxed text-ink-soft sm:text-sm;
+  background-color: var(--color-sunken);
+}
+
+.series__sidebar {
+  @apply space-y-4;
+}
+
+.series__list-title {
+  @apply mb-4 flex items-center space-x-2 font-serif text-xl font-bold text-ink;
+}
+
+.series__list {
+  @apply space-y-2.5;
+}
+
+.series__list--scroll {
+  @apply space-y-2.5 overflow-y-auto pr-1;
+  max-height: 600px;
+}
+
+.series__item-label {
+  @apply block font-semibold uppercase tracking-wider text-gold;
+  font-size: 10px;
+}
+
+/* ============================================================
+ * Sala de profesores (/sala-de-profesores)
+ * ============================================================ */
+
+.sala__hero-bg {
+  opacity: 0.3;
+}
+
+.sala__hero-inner {
+  @apply relative z-10 mx-auto max-w-4xl px-4 text-center;
+}
+
+.sala__hero-tag {
+  @apply mb-3 inline-flex items-center space-x-2 rounded-full border border-gold/40 px-3 py-1 text-xs font-semibold text-gold shadow-sm;
+  background-color: rgb(244 236 220 / 0.9);
+}
+
+.sala__hero-tag-text {
+  @apply uppercase tracking-widest;
+  font-family: 'Cinzel', serif;
+}
+
+.sala__hero-title {
+  @apply font-serif text-3xl font-bold text-ink drop-shadow-md sm:text-5xl lg:text-6xl;
+}
+
+.sala__hero-text {
+  @apply mx-auto mt-3 max-w-2xl text-xs font-light leading-relaxed text-ink-soft sm:text-base;
+}
+
+.sala__hero-meta {
+  @apply mt-4 flex flex-wrap items-center justify-center gap-3 text-xs;
+}
+
+.sala__hero-live {
+  @apply inline-flex items-center space-x-1.5 rounded-lg border border-line px-3 py-1 text-ink-soft;
+  background-color: var(--color-surface);
+}
+
+.sala__hero-live-icon {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.sala__hero-link {
+  @apply inline-flex items-center space-x-1.5 rounded-lg border border-accent/30 px-3 py-1 text-accent transition-colors hover:bg-accent hover:text-white;
+  background-color: rgb(140 42 18 / 0.1);
+}
+
+.sala__body {
+  @apply mx-auto max-w-7xl space-y-12 px-4 py-12 sm:px-6 lg:px-8;
+}
+
+.sala__player {
+  @apply space-y-4 rounded-2xl border border-line p-4 shadow-2xl sm:p-6;
+  background-color: var(--color-surface);
+}
+
+.sala__player-head {
+  @apply flex flex-col justify-between gap-3 border-b border-line pb-4 sm:flex-row sm:items-center;
+}
+
+.sala__player-id {
+  @apply flex items-center space-x-3;
+}
+
+.sala__player-icon {
+  @apply flex h-10 w-10 items-center justify-center rounded-xl border border-accent/30 text-accent;
+  background-color: rgb(140 42 18 / 0.15);
+}
+
+.sala__player-icon-svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: currentColor;
+}
+
+.sala__player-label {
+  @apply block font-bold uppercase tracking-wider text-gold;
+  font-size: 11px;
+}
+
+.sala__player-title {
+  @apply font-serif text-lg font-bold leading-tight text-ink sm:text-xl;
+}
+
+.sala__player-actions {
+  @apply flex items-center gap-2;
+}
+
+.sala__reset {
+  @apply inline-flex items-center space-x-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-accent transition-colors hover:bg-gold/20;
+  background-color: var(--color-soft);
+}
+
+.sala__external {
+  @apply inline-flex items-center space-x-1.5 rounded-lg border border-line px-3 py-1.5 text-xs font-medium text-ink-soft transition-colors hover:border-gold hover:text-ink;
+}
+
+.sala__summary {
+  @apply flex items-start space-x-2 rounded-xl border border-line/60 p-3.5 text-xs text-ink-soft;
+  background-color: var(--color-sunken);
+}
+
+.sala__summary-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.125rem;
+  color: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.sala__filters {
+  @apply space-y-4;
+}
+
+.sala__filter-row {
+  @apply flex flex-col items-stretch justify-between gap-4 md:flex-row md:items-center;
+}
+
+.sala__search {
+  @apply relative max-w-lg flex-1;
+}
+
+.sala__chips {
+  @apply flex flex-wrap items-center gap-2;
+}
+
+.sala__sort {
+  @apply ml-auto inline-flex items-center space-x-1.5 rounded-xl border border-line px-3 py-1.5 text-xs font-medium text-ink-soft transition-colors hover:border-gold hover:text-ink md:ml-0;
+  background-color: var(--color-surface);
+}
+
+.sala__count {
+  @apply flex items-center justify-between px-1 text-xs text-ink-muted;
+}
+
+.sala__count-hint {
+  @apply hidden sm:inline;
+}
+
+.sala__loading {
+  @apply space-y-3 py-24 text-center text-ink-muted;
+}
+
+.sala__empty {
+  @apply space-y-3 rounded-2xl border border-line p-8 py-20 text-center;
+  background-color: var(--color-surface);
+}
+
+.sala__empty-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 auto;
+  color: var(--color-gold);
+  opacity: 0.7;
+}
+
+.sala__empty-title {
+  @apply font-serif text-lg font-bold text-ink;
+}
+
+.sala__empty-text {
+  @apply mx-auto max-w-md text-xs text-ink-muted;
+}
+
+.sala__empty-reset {
+  @apply mt-2 rounded-xl px-4 py-2 text-xs font-semibold text-accent hover:bg-gold/20;
+  background-color: var(--color-soft);
+}
+
+.sala__grid {
+  @apply grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3;
+}
+
+.video-card {
+  @apply flex cursor-pointer flex-col overflow-hidden rounded-2xl border shadow-lg transition-all duration-300 hover:shadow-2xl;
+  background-color: var(--color-surface);
+}
+
+.video-card:not(.is-playing) {
+  @apply border-line hover:border-gold/60;
+}
+
+.video-card.is-playing {
+  @apply border-gold ring-2 ring-gold/40;
+}
+
+.video-card__media {
+  @apply relative w-full overflow-hidden;
+  aspect-ratio: 16 / 9;
+  background-color: var(--color-sunken);
+}
+
+.video-card__image {
+  @apply h-full w-full object-cover transition-transform duration-500;
+}
+
+.video-card:hover .video-card__image {
+  transform: scale(1.05);
+}
+
+.video-card__overlay {
+  @apply absolute inset-0 flex items-center justify-center opacity-0 transition-opacity;
+  background-color: rgb(43 16 10 / 0.3);
+}
+
+.video-card:hover .video-card__overlay {
+  opacity: 1;
+}
+
+.video-card__play {
+  @apply flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white shadow-2xl transition-transform;
+  transform: scale(0.9);
+}
+
+.video-card:hover .video-card__play {
+  transform: scale(1);
+}
+
+.video-card__play-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: 0.125rem;
+  fill: currentColor;
+}
+
+.video-card__duration {
+  @apply absolute bottom-2.5 right-2.5 flex items-center space-x-1 rounded-md px-2 py-0.5 font-semibold text-white backdrop-blur-sm;
+  background-color: rgb(0 0 0 / 0.8);
+  font-size: 11px;
+}
+
+.video-card__badges {
+  @apply absolute left-2.5 top-2.5 flex items-center gap-1.5;
+}
+
+.video-card__episode {
+  @apply rounded-md border border-line px-2 py-0.5 font-bold text-ink backdrop-blur-sm;
+  background-color: rgb(237 227 207 / 0.9);
+  font-size: 10px;
+}
+
+.video-card__type {
+  @apply flex items-center space-x-1 rounded-md px-2 py-0.5 font-bold shadow-sm;
+  font-size: 10px;
+}
+
+.video-card__type--qna {
+  @apply bg-accent/90 text-white;
+}
+
+.video-card__type--lesson {
+  @apply bg-gold/90 text-ink;
+}
+
+.video-card__type-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.video-card__now {
+  @apply absolute right-2.5 top-2.5 rounded-md bg-accent px-2 py-0.5 font-bold text-white shadow-md;
+  font-size: 10px;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.video-card__body {
+  @apply flex flex-1 flex-col justify-between space-y-3 p-5;
+}
+
+.video-card__texts {
+  @apply space-y-1.5;
+}
+
+.video-card__title {
+  @apply line-clamp-2 font-serif text-sm font-bold leading-snug text-ink transition-colors sm:text-base;
+}
+
+.video-card:hover .video-card__title {
+  color: var(--color-accent);
+}
+
+.video-card__summary {
+  @apply line-clamp-2 text-xs font-light leading-relaxed text-ink-muted;
+}
+
+.video-card__footer {
+  @apply flex items-center justify-between border-t border-line/60 pt-2 text-xs;
+}
+
+.video-card__cta {
+  @apply inline-flex items-center space-x-1 font-semibold text-accent;
+}
+
+.video-card:hover .video-card__cta {
+  text-decoration: underline;
+}
+
+.video-card__external {
+  @apply p-1 text-ink-muted transition-colors hover:text-accent;
+}
+
+.sala__info {
+  @apply space-y-3 rounded-2xl border border-line p-6 text-xs text-ink-soft shadow-sm;
+  background-color: var(--color-sunken);
+}
+
+.sala__info-head {
+  @apply flex items-center space-x-2 font-bold uppercase tracking-wider text-gold;
+}
+
+.sala__info-text {
+  @apply font-light leading-relaxed;
+}
+
+.sala__info-links {
+  @apply flex flex-wrap items-center gap-3 pt-1;
+}
+
+.sala__info-link {
+  @apply inline-flex items-center space-x-1.5 font-semibold text-accent hover:underline;
+}
+
+.sala__info-link--muted {
+  @apply text-ink-soft hover:text-ink;
+}

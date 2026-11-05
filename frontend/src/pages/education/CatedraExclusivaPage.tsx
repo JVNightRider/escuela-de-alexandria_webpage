@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { GraduationCap, BookOpen, ExternalLink, Heart, ArrowRight } from 'lucide-react';
 import { getCourseSync } from '../../data/coursesData';
 import { PageMeta } from '../../components/PageMeta';
+import { BackdropImage } from '../../components/BackdropImage';
+import { SITE } from '../../data/site';
 
 /** Cátedra magistral: contenido y ficha del ponente tomados del programa `catedra-exclusiva`. */
 const catedra = getCourseSync('catedra-exclusiva');
@@ -15,74 +17,55 @@ const payuLink = lecturer.payuLink ?? fullLecture?.payuLink;
 
 export const CatedraExclusivaPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-page text-ink-soft">
+    <div className="page">
 
       <PageMeta title={catedra.title} description={catedra.summary} path="/catedra-exclusiva" />
 
-      {/* HERO BANNER */}
-      <section className="relative h-64 sm:h-80 flex items-center justify-center overflow-hidden border-b border-line">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-30"
-          style={{ backgroundImage: `url('${catedra.heroImage}')` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-page via-page/60 to-transparent" />
+      {/* HERO */}
+      <section className="page-hero page-hero--tall">
+        <BackdropImage src={catedra.heroImage!} className="backdrop catedra__hero-bg" />
+        <div className="page-hero__overlay" />
 
-        <div className="relative text-center px-4 z-10">
-          <span className="text-xs uppercase tracking-widest text-gold font-bold font-title-ancient">
-            {catedra.kicker}
-          </span>
-          <h1 className="font-serif text-4xl sm:text-6xl font-bold text-ink mt-2 drop-shadow-lg">
-            Cátedra Exclusiva
-          </h1>
+        <div className="page-hero__inner">
+          <span className="page-hero__kicker">{catedra.kicker}</span>
+          <h1 className="page-hero__title">Cátedra Exclusiva</h1>
         </div>
       </section>
 
-      {/* CONTENIDO PRINCIPAL */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="catedra__body">
 
-        {/* ENLACE DIRECTO AL ARCHIVO DE CRÓNICAS */}
-        <div className="mb-12 p-4 rounded-xl bg-surface border border-line flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center space-x-3">
-            <BookOpen className="w-5 h-5 text-gold" />
-            <span className="text-xs sm:text-sm text-ink-soft">
+        {/* Enlace al archivo de Crónicas */}
+        <div className="catedra__archive">
+          <div className="catedra__archive-text">
+            <BookOpen className="catedra__archive-icon" />
+            <span className="catedra__archive-copy">
               ¿Buscas las cátedras anteriores del Dr. Adolfo Roitman, Dr. Rene Krüger o Dr. Antonio Piñero?
             </span>
           </div>
-          <Link
-            to="/cronicas"
-            className="px-4 py-2 rounded-lg bg-soft hover:bg-gold hover:text-ink text-ink-soft text-xs font-bold transition-all flex items-center space-x-1.5 flex-shrink-0"
-          >
+          <Link to="/cronicas" className="catedra__archive-link">
             <span>Ir al Archivo de Crónicas</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="icon icon--tiny" />
           </Link>
         </div>
 
-        {/* REJILLA EN 2 COLUMNAS */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="catedra__grid">
 
-          {/* Columna Izquierda: Foto, Video y Medios de Pago */}
-          <div className="space-y-8">
-            {/* Retrato del expositor */}
-            <div className="rounded-2xl overflow-hidden border border-line shadow-2xl bg-surface">
-              <img
-                src={lecturer.portrait}
-                alt={lecturer.name}
-                className="w-full h-80 object-cover object-top filter contrast-105"
-              />
-              <div className="p-4 bg-sunken border-t border-line text-center">
-                <span className="font-serif text-sm font-bold text-accent">{lecturer.name}</span>
-                <p className="text-[11px] text-ink-muted">{lecturer.role}</p>
+          {/* Columna izquierda: retrato, video y pagos */}
+          <div className="catedra__col">
+            <div className="catedra__portrait">
+              <img src={lecturer.portrait} alt={lecturer.name} className="catedra__portrait-image" />
+              <div className="catedra__portrait-caption">
+                <span className="catedra__lecturer">{lecturer.name}</span>
+                <p className="catedra__lecturer-role">{lecturer.role}</p>
               </div>
             </div>
 
-            {/* Video de presentación */}
             {presentation?.youtubeId && (
-              <div className="rounded-2xl overflow-hidden border border-line shadow-xl bg-black">
-                <div className="aspect-video w-full">
+              <div className="catedra__video">
+                <div className="video-frame">
                   <iframe
                     src={`https://www.youtube.com/embed/${presentation.youtubeId}`}
                     title={`Presentación Cátedra Exclusiva ${lecturer.name}`}
-                    className="w-full h-full border-0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
@@ -90,83 +73,76 @@ export const CatedraExclusivaPage: React.FC = () => {
               </div>
             )}
 
-            {/* Pasarelas de Pago */}
-            <div className="p-6 rounded-2xl bg-surface border border-line text-center space-y-4 shadow-xl">
-              <p className="text-xs font-semibold text-ink-soft">
+            <div className="catedra__payment">
+              <p className="catedra__payment-text">
                 Puedes adquirir la grabación completa de esta cátedra a través de PAYU o colaborar mediante PAYPAL:
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <div className="catedra__payment-actions">
                 {payuLink && (
                   <a
                     href={payuLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-5 py-2.5 rounded-lg bg-gold hover:bg-gold-light text-ink font-bold text-xs shadow-md transition-all flex items-center justify-center space-x-1.5"
+                    className="button button--gold button--sm button--flat"
                   >
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="icon icon--tiny" />
                     <span>Adquirir por PayU</span>
                   </a>
                 )}
 
                 <a
-                  href="https://www.paypal.com/donate?hosted_button_id=HSRYKCZY3EQ6U"
+                  href={SITE.donations.paypal}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-2.5 rounded-lg bg-accent hover:bg-accent-dark text-white font-semibold text-xs shadow-md transition-all flex items-center justify-center space-x-1.5"
+                  className="button button--accent button--sm button--flat"
                 >
-                  <Heart className="w-4 h-4" />
+                  <Heart className="icon icon--tiny" />
                   <span>Apoyar por PayPal</span>
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Columna Derecha: Temario y Biografía */}
-          <div className="space-y-8">
-            <div>
-              <span className="text-xs uppercase tracking-widest text-gold font-bold">
-                Cátedra Magistral
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-ink mt-2 leading-tight">
-                {catedra.title}
-              </h2>
-              <p className="text-sm font-semibold text-accent mt-1">
-                Presentado por: {lecturer.name}
-              </p>
-            </div>
+          {/* Columna derecha: temario y perfil */}
+          <div className="catedra__col">
+            <div className="catedra__intro">
+              <div>
+                <span className="kicker">Cátedra Magistral</span>
+                <h2 className="catedra__title">{catedra.title}</h2>
+                <p className="catedra__presenter">Presentado por: {lecturer.name}</p>
+              </div>
 
-            <div className="p-6 rounded-2xl bg-surface border border-line space-y-4 text-sm text-ink-soft leading-relaxed font-light">
-              <p>{catedra.description}</p>
+              <div className="catedra__card">
+                <p>{catedra.description}</p>
 
-              <div className="space-y-2 pt-2 border-t border-line">
-                <h4 className="font-serif text-base font-bold text-ink">Temas abordados en la cátedra:</h4>
-                <ul className="space-y-2 text-xs list-disc list-inside text-ink-soft">
-                  {lecturer.topics.map((topic) => (
-                    <li key={topic}>{topic}</li>
+                <div className="catedra__topics">
+                  <h4 className="catedra__topics-title">Temas abordados en la cátedra:</h4>
+                  <ul className="catedra__topics-list">
+                    {lecturer.topics.map((topic) => (
+                      <li key={topic}>{topic}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="catedra__profile">
+                <h3 className="catedra__profile-title">
+                  <GraduationCap className="icon icon--md icon--gold" />
+                  <span>Perfil Académico del Ponente</span>
+                </h3>
+                <p className="catedra__profile-bio">{lecturer.bio}</p>
+
+                <ul className="catedra__credentials">
+                  {lecturer.credentials.map((credential) => (
+                    <li key={credential}>&bull; {credential}</li>
                   ))}
                 </ul>
               </div>
             </div>
-
-            {/* Currículum del expositor */}
-            <div className="p-6 rounded-2xl bg-surface border border-line space-y-3">
-              <h3 className="font-serif text-xl font-bold text-ink flex items-center space-x-2">
-                <GraduationCap className="w-5 h-5 text-gold" />
-                <span>Perfil Académico del Ponente</span>
-              </h3>
-              <p className="text-xs text-ink-soft leading-relaxed font-light">{lecturer.bio}</p>
-
-              <ul className="space-y-1.5 text-xs text-ink-soft pt-2 border-t border-line">
-                {lecturer.credentials.map((credential) => (
-                  <li key={credential}>&bull; {credential}</li>
-                ))}
-              </ul>
-            </div>
           </div>
 
         </div>
-
       </div>
     </div>
   );
