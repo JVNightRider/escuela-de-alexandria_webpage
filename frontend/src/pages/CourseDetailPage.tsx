@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { BookOpen, PlayCircle, ArrowLeft, ExternalLink, Lock } from 'lucide-react';
 import { Course, Lesson } from '../types';
 import { api } from '../services/api';
+import { PageMeta } from '../components/PageMeta';
 
 export const CourseDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -50,6 +51,7 @@ export const CourseDetailPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-page text-ink-soft py-12">
+      <PageMeta title={course.title} description={course.summary} path={`/cursos/${course.slug}`} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Botón Volver */}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight, Maximize2, X, Download, ExternalLink } from 'lucide-react';
 import { brochure, seminariosData } from '../../data/seminariosData';
+import { PageMeta } from '../../components/PageMeta';
 
 export const SeminariosPage: React.FC = () => {
   const [isZoomOpen, setIsZoomOpen] = useState(false);
@@ -9,6 +10,12 @@ export const SeminariosPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-page text-ink-soft">
+
+      <PageMeta
+        title="Educación & Seminarios"
+        description="Oferta académica 2026-2027 de la Escuela de Alexandría: malla curricular, seminarios dictados y cátedras de ciencias bíblicas."
+        path="/seminarios"
+      />
 
       {/* HERO BANNER */}
       <section className="relative h-60 sm:h-72 flex items-center justify-center overflow-hidden border-b border-line">

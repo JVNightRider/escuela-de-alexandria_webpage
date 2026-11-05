@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PlayCircle, ExternalLink, ShieldAlert } from 'lucide-react';
 import { getCourseSync } from '../../data/coursesData';
+import { PageMeta } from '../../components/PageMeta';
 
 /** Archivo de cátedras magistrales: todo el contenido proviene del programa `cronicas`. */
 const cronicas = getCourseSync('cronicas');
@@ -11,6 +12,8 @@ export const CronicasPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-page text-ink-soft">
+
+      <PageMeta title="Crónicas" description={cronicas.summary} path="/cronicas" />
 
       {/* HERO BANNER DE CRÓNICAS */}
       <section className="relative h-64 sm:h-80 flex items-center justify-center overflow-hidden border-b border-line">

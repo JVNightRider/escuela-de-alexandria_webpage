@@ -1,10 +1,16 @@
 import React from 'react';
 import { GraduationCap } from 'lucide-react';
 import { teachersData } from '../data/teachersData';
+import { PageMeta } from '../components/PageMeta';
 
 export const TeachersPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-page text-ink-soft py-16">
+      <PageMeta
+        title="Profesores & Tutores"
+        description="Cuerpo docente de la Escuela de Alexandría: especialistas en divinidad, hebreo y griego bíblico, judaísmo del Segundo Templo y crítica textual."
+        path="/profesores"
+      />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Cabecera de Sección */}

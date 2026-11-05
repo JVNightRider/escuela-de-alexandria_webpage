@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { GraduationCap, BookOpen, ExternalLink, Heart, ArrowRight } from 'lucide-react';
 import { getCourseSync } from '../../data/coursesData';
+import { PageMeta } from '../../components/PageMeta';
 
 /** Cátedra magistral: contenido y ficha del ponente tomados del programa `catedra-exclusiva`. */
 const catedra = getCourseSync('catedra-exclusiva');
@@ -15,6 +16,8 @@ const payuLink = lecturer.payuLink ?? fullLecture?.payuLink;
 export const CatedraExclusivaPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-page text-ink-soft">
+
+      <PageMeta title={catedra.title} description={catedra.summary} path="/catedra-exclusiva" />
 
       {/* HERO BANNER */}
       <section className="relative h-64 sm:h-80 flex items-center justify-center overflow-hidden border-b border-line">

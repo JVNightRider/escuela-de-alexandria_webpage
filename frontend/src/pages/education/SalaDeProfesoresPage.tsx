@@ -24,6 +24,7 @@ import {
   getSalaProfesoresVideos,
   PlaylistSyncResult
 } from '../../services/youtubePlaylistService';
+import { PageMeta } from '../../components/PageMeta';
 
 export const SalaDeProfesoresPage: React.FC = () => {
   const [syncData, setSyncData] = useState<PlaylistSyncResult>({
@@ -111,6 +112,13 @@ export const SalaDeProfesoresPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-page text-ink-soft">
+
+      <PageMeta
+        title="Sala de Profesores (Q&A)"
+        description="Veintinueve sesiones en video de preguntas y respuestas con los docentes de la Escuela de Alexandría: sectas, canon, Qumrán, crítica textual y textos gnósticos."
+        path="/sala-de-profesores"
+      />
+
       {/* HERO BANNER */}
       <section className="relative h-64 sm:h-80 flex items-center justify-center overflow-hidden border-b border-line">
         <div

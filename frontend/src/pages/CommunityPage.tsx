@@ -1,10 +1,16 @@
 import React from 'react';
 import { ExternalLink, Users } from 'lucide-react';
 import { YoutubeIcon, InstagramIcon, FacebookIcon } from '../components/SocialIcons';
+import { PageMeta } from '../components/PageMeta';
 
 export const CommunityPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-page text-ink-soft py-16">
+      <PageMeta
+        title="Comunidad & Redes"
+        description="Canales oficiales, redes sociales y espacios de diálogo de la Escuela de Alexandría para el debate respetuoso y el análisis exegético."
+        path="/comunidad"
+      />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Cabecera */}

@@ -5,6 +5,8 @@ import { Course } from '../types';
 import { api } from '../services/api';
 import { YoutubeIcon } from '../components/SocialIcons';
 import { ParallaxBackground } from '../components/ParallaxBackground';
+import { PageMeta } from '../components/PageMeta';
+import { SITE } from '../data/site';
 
 export const HomePage: React.FC = () => {
   const [featuredCourses, setFeaturedCourses] = useState<Course[]>([]);
@@ -17,6 +19,12 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-page text-ink-soft">
+
+      <PageMeta
+        title={`${SITE.name} | Investigación Bíblica e Histórica`}
+        description={SITE.description}
+        path="/"
+      />
 
       {/* HERO SECTION */}
       <section className="relative min-h-[88vh] flex items-center justify-center overflow-hidden border-b border-line">

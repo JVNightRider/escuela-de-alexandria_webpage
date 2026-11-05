@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PlayCircle, Layers } from 'lucide-react';
 import { getCourseSync } from '../../data/coursesData';
+import { PageMeta } from '../../components/PageMeta';
 
 /** Cátedra de crítica textual: módulos tomados del programa `canones-biblicos`. */
 const canones = getCourseSync('canones-biblicos');
@@ -12,6 +13,8 @@ export const CanonesBiblicosPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-page text-ink-soft">
+
+      <PageMeta title={canones.title} description={canones.summary} path="/canones-biblicos" />
 
       {/* HERO BANNER */}
       <section className="relative h-64 sm:h-80 flex items-center justify-center overflow-hidden border-b border-line">

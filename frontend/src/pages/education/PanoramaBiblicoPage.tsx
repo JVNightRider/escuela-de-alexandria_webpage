@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PlayCircle, Compass } from 'lucide-react';
 import { getCourseSync } from '../../data/coursesData';
+import { PageMeta } from '../../components/PageMeta';
 
 /** Ciclo de historia bíblica: episodios tomados del programa `panorama-biblico`. */
 const panorama = getCourseSync('panorama-biblico');
@@ -12,6 +13,8 @@ export const PanoramaBiblicoPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-page text-ink-soft">
+
+      <PageMeta title={panorama.title} description={panorama.summary} path="/panorama-biblico" />
 
       {/* HERO BANNER */}
       <section className="relative h-64 sm:h-80 flex items-center justify-center overflow-hidden border-b border-line">
