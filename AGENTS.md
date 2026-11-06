@@ -56,12 +56,13 @@ Valores que solo existen en tiempo de ejecución (por ejemplo, el desplazamiento
 - Nombres descriptivos en kebab-case con prefijo por tipo: `curso-`, `profesor-`, `seminario-`, `hero-`.
 - Antes de añadir una imagen, redimensionarla al tamaño real de uso (retratos ≤ 900 px de lado mayor, banners ≤ 1600 px) y verificar que no supere ~300 KB.
 
-## 4. SEO
+## 4. SEO y dominio
 
-- La URL canónica y los datos institucionales están en `frontend/src/data/site.ts`.
+- **No se escribe ningún dominio en el código.** El origen se toma de la URL en tiempo de ejecución con `getSiteOrigin()` (`frontend/src/data/site.ts`), de modo que cambiar de servidor o de dominio no exige tocar archivos.
 - Cada página declara `<PageMeta title description path />`; no se escriben etiquetas meta a mano en los componentes.
-- Las etiquetas base viven en `frontend/index.html` (Open Graph, Twitter, JSON-LD) para los rastreadores que no ejecutan JavaScript.
-- Al cambiar de dominio hay que actualizar `SITE.url`, `frontend/index.html`, `frontend/public/robots.txt` y `frontend/public/sitemap.xml`.
+- Las etiquetas base viven en `frontend/index.html` con el marcador `__SITE_ORIGIN__`; el plugin de `frontend/vite.config.ts` lo sustituye por el origen del despliegue.
+- `robots.txt` y `sitemap.xml` se generan en el build con ese mismo origen (`SITE_URL`, `VERCEL_PROJECT_PRODUCTION_URL`, `URL` o `CF_PAGES_URL`). Si no hay ninguna variable, se publican rutas relativas y no se genera sitemap: nunca se publica un dominio equivocado.
+- Los datos estructurados (`SiteSchema`) se generan en React con el origen real de la URL.
 
 ## 5. Verificación antes de cerrar un cambio
 

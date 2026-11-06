@@ -15,11 +15,13 @@ import { CronicasPage } from './pages/education/CronicasPage';
 import { PanoramaBiblicoPage } from './pages/education/PanoramaBiblicoPage';
 import { CanonesBiblicosPage } from './pages/education/CanonesBiblicosPage';
 import { SalaDeProfesoresPage } from './pages/education/SalaDeProfesoresPage';
+import { SiteSchema } from './components/SiteSchema';
 
 export const App: React.FC = () => {
   return (
     <BrowserRouter>
       <div className="app-shell">
+        <SiteSchema />
         <Navbar />
         <main className="app-main">
           <Routes>

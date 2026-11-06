@@ -1,12 +1,13 @@
 /**
  * Identidad y datos institucionales del sitio.
- * Punto único para la URL canónica, redes y canales de donación:
- * las páginas no deben volver a escribir estas cadenas.
+ *
+ * No hay dominio fijo: el origen se toma siempre de la URL desde la que se
+ * sirve el sitio, de modo que cambiar de servidor o de dominio no exige tocar
+ * el código. El sitemap y el robots.txt los genera `vite.config.ts` con el
+ * origen que publica el proveedor de hosting.
  */
 export const SITE = {
   name: 'Escuela de Alexandría',
-  /** Dominio canónico. Cambiar aquí y en `index.html`, `robots.txt` y `sitemap.xml` al definir el definitivo. */
-  url: 'https://escueladealexandria.com',
   locale: 'es_CO',
   lang: 'es',
   description:
@@ -32,6 +33,10 @@ export const SITE = {
   }
 } as const;
 
-/** Construye una URL absoluta a partir de una ruta interna. */
+/** Origen actual del sitio (vacío durante el render en servidor). */
+export const getSiteOrigin = (): string =>
+  typeof window === 'undefined' ? '' : window.location.origin;
+
+/** Construye una URL absoluta a partir de una ruta interna y el origen actual. */
 export const absoluteUrl = (path: string): string =>
-  `${SITE.url}${path.startsWith('/') ? path : `/${path}`}`;
+  `${getSiteOrigin()}${path.startsWith('/') ? path : `/${path}`}`;
